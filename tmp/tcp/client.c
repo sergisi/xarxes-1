@@ -12,9 +12,19 @@
 #include <errno.h>
 
 #include <unistd.h>
+#include <string.h>
 
 #define PORT 9002
 #define SIZEBUFF 150
+
+struct pac1 {
+    unsigned char type;
+    char name[7];
+    char mac[13];
+    char random[7];
+    char data[50];
+};
+
 
 int main() {
     /*Create socket */
@@ -22,7 +32,12 @@ int main() {
     struct sockaddr_in serverAdress;
     int connectionStatus;
     char server_response[SIZEBUFF];
-    unsigned char client_response[SIZEBUFF] = "ABCD";
+    struct pac1 resp;
+    resp.type = 0x20;
+    strcpy(resp.name,  "i-700");
+    strcpy(resp.mac, "89F107457A36");
+    strcpy(resp.random, "0");
+    strcpy(resp.data, "Just some struct passing program");
     networkSocket = socket(AF_INET, SOCK_STREAM, 0); 
         /*Retorna el socket propi de l'aplicació ~*/
     
@@ -53,8 +68,7 @@ int main() {
     
     /* print out solution and close connection */
     printf("The server sent the data: %s\n", server_response);
-    client_response[7] = 0x20;
-    send(networkSocket, client_response, SIZEBUFF, 0);
+    send(networkSocket, &resp, sizeof(resp), 0);
     close(networkSocket);
 
     return 0;
