@@ -17,12 +17,12 @@
 #define PORT 9002
 #define SIZEBUFF 150
 
-struct pac1 {
+struct Tcp {
     unsigned char type;
     char name[7];
     char mac[13];
     char random[7];
-    char data[50];
+    char data[150];
 };
 
 
@@ -32,7 +32,7 @@ int main() {
     struct sockaddr_in serverAdress;
     int connectionStatus;
     char server_response[SIZEBUFF];
-    struct pac1 resp;
+    struct Tcp resp;
     resp.type = 0x20;
     strcpy(resp.name,  "i-700");
     strcpy(resp.mac, "89F107457A36");
@@ -61,13 +61,13 @@ int main() {
         exit(-1);
     }
 
-    /* recieve data from the server*/
+    /* recieve data from the server *
     len = recv(networkSocket, &server_response, sizeof(server_response), 0);
     printf("%i\n", len);
     server_response[len] = '\0';
     
-    /* print out solution and close connection */
-    printf("The server sent the data: %s\n", server_response);
+    /* print out solution and close connection *
+    printf("The server sent the data: %s\n", server_response);*/
     send(networkSocket, &resp, sizeof(resp), 0);
     close(networkSocket);
 

@@ -17,13 +17,26 @@
 #define PORT 9003
 #define SIZEBUFF 1024
 
+struct Udp {
+    unsigned char type;
+    char name[7];
+    char mac[13];
+    char random[7];
+    char data[50];
+};
+
+
 int main() {
     /*Create socket */
     int networkSocket, n;
     unsigned int length;
     struct sockaddr_in serverAdress;
-    char serverResponse[SIZEBUFF];
-    char *hello = "Hello from client";
+    struct Udp resp, recv;
+    resp.type = 0x20;
+    strcpy(resp.name,  "i-700");
+    strcpy(resp.mac, "89F107457A36");
+    strcpy(resp.random, "0");
+    strcpy(resp.data, "Just some struct passing program");
     networkSocket = socket(AF_INET, SOCK_DGRAM, 0); /*Retorna el socket propi de l'aplicació ~*/
 
     /*Specify an address for the socket */
@@ -35,17 +48,15 @@ int main() {
         /* Especifica l'adreça del computador a connectar.
         L'adressa es 0.0.0.0 (CONST de lib*), o sigui, alguna connexiód a la xarxa local */
 
-    sendto(networkSocket, (const char *) hello, strlen(hello), MSG_CONFIRM, 
+    sendto(networkSocket, &resp, sizeof(resp), MSG_CONFIRM, 
                 (const struct sockaddr *) &serverAdress, sizeof(serverAdress));
     printf("Hello message sent:\n");
 
-    n = recvfrom(networkSocket, (void *) serverResponse, SIZEBUFF, MSG_WAITALL,
+    n = recvfrom(networkSocket, (void *) &recv, sizeof(recv), MSG_WAITALL,
              (struct sockaddr *) &serverAdress, &length);
 
-    serverResponse[n] = '\0';
-
     /* print out solution and close connection */
-    printf("The server sent the data: %s\n", serverResponse);
+    printf("The server sent the data: %s\n", recv.data);
     close(networkSocket);
 
     return 0;
