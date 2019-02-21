@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
+#include <netdb.h>
 
 /* All constants */
 #define CONFIG_SIZE 20
@@ -120,12 +121,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
         } else if(strcmp(word, "MAC") == 0) {
             strcpy(conn.nom, strtok(NULL, " "));
         } else if(strcmp(word, "Server") == 0) {
-            word = strtok(NULL, " ");
-            if(strcmp(word, "localhost") == 0) {
-                server = INADDR_LOOPBACK;
-            } else {
-                sscanf(word, "%i", &server);
-            }
+            server = gethostbyname(strtok(NULL, " "));
         } else if(strcmp(word, "Server-port") == 0) {
             sscanf(strtok(NULL, " "), "%i", &port);
         } else {
@@ -171,6 +167,16 @@ void udp_send(connection connection, unsigned char type,
            sizof(package), 0, 
            (const struct sockaddr *) &connection.udp_connect.address,
            sizeof(connection.udp_connect.address));
+}
+
+/* Doesnt check errors */
+udp_package udp_recv(connection connection) {
+    udp_package package;
+    recvfrom(connection.udp_connect.socket, (void *) &package, 
+           sizof(package), 0, 
+           (const struct sockaddr *) &connection.udp_connect.address,
+           sizeof(connection.udp_connect.address));
+    return package;
 }
 
 
