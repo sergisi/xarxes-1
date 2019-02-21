@@ -62,12 +62,14 @@ udp_connect connect(int server, int port);
 udp_package udp_recv(connection connection);
 void udp_send(connection connection, unsigned char type, 
               char data[50]);
+void register_fase(connection connection, int debug);
 
 int main(int argc, char **argv) {
     Arg arg;
     connection conn;
     arg = argparser(argc, argv);
     conn = udp_sock(arg.config, arg.debug);
+    register_fase();
     return 0;
 }
 
@@ -106,6 +108,10 @@ void debu(char *text, int debug){
     }
 }
 
+/* TODO: read is not safe. Scanf is not safe. I'm quite sure that
+ * server ip reading doesn't work not even near that what I would 
+ * expect. Maybe %i.%i.%i.%i will help? It's necessary tho? ask 
+ * professor maybe */
 connection udp_sock(char config[CONFIG_SIZE], int debug) {
     connection conn;
     int fd_config;
@@ -113,7 +119,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     char *word;
     int server, port;
     fd_config = fopen(config, 'r');
-    read(fd_config, line, sizeof(line)); //It should read all the doc
+    read(fd_config, line, sizeof(line)); /* It should read all the doc */
     word = strtok(line, " ");
     while(word != NULL) {
         if(strcmp(word, "Nom") == 0){
@@ -121,7 +127,12 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
         } else if(strcmp(word, "MAC") == 0) {
             strcpy(conn.nom, strtok(NULL, " "));
         } else if(strcmp(word, "Server") == 0) {
-            server = gethostbyname(strtok(NULL, " "));
+            word = (strtok(NULL, " "));
+            if (strcmp(word, 'localhost') == 0){
+                server = INADDR_LOOPBACK;
+            } else {
+                sscanf(word, "%i", &server);
+            }
         } else if(strcmp(word, "Server-port") == 0) {
             sscanf(strtok(NULL, " "), "%i", &port);
         } else {
@@ -179,7 +190,9 @@ udp_package udp_recv(connection connection) {
     return package;
 }
 
-
+void register_fase(connection connection, int debug) {
+    /* TODO: DO*/
+}
 
 
 
