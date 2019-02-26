@@ -39,7 +39,8 @@ enum pac {REGISTER_REQ=0x00, REGISTER_ACK=0x01,
 enum states {DISCONNECTED, WAIT_REG, REGISTERED,
              ALIVE};
             
-enum time {N=3, T=2, M=4, P=8, S=5, Q=3};
+enum time {N=3, T=2, M=4, P=8, S=5, Q=3, R=3, U=3};
+enum command {SEND, RECV, QUIT};
 /* All structs used in the program */
 /* It will contain all arguments passed trough the call of the 
  * the function */
@@ -88,7 +89,11 @@ void register_fase(connection connection, int debug);
 int time(int iter);
 int udp_package_checker(udp_package package, connection connection);
 void quit(connection connection); /* TODO*/
+void alive_fase(connection connection, int debug);
 
+
+/* TODO: sighandler for alarm, as it causes
+ * program termination. */
 int main(int argc, char **argv) {
     Arg arg;
     connection conn;
@@ -233,7 +238,6 @@ int udp_recv(connection connection, udp_package *package) {
 /* TODO: add checker for MAC addres and name.
  *       add debugger, for god's sake!!*/
 void register_fase(connection connection, int debug) {
-    /* TODO: */
     char data[50];
     udp_package package;
     int bytes_readed;
@@ -305,5 +309,53 @@ int udp_package_checker(udp_package package, connection connection) {
     }
 }
 
+/* Add sighandler for end when child gets quit command */
+void alive_fase(connection connection, int debug) {
+    int alive_send, alive_recv;
+    int bytes_readed;
+    udp_package package;
+    char data[50];
+    memset((void *) data, '\0', sizeof(data));
+    alive_send = 0;
+    bytes_readed = 0;
+    alive_recv = 0;
+    while(alive_send - alive_recv < 0) {
+        udp_send(connection, ALIVE_INF, data);
+        alive_send++;
+        alarm(R);
+        bytes_readed = udp_recv(connection, &package);
+        if (bytes_readed != 0 && udp_package_checker(package, connection) != 0) {
+            sleep(R);
+            bytes_readed = 0;
+            connection.state = ALIVE;
+            if (package.type == ALIVE_ACK) {
+                alive_recv++;
+            } else if (package.type == ALIVE_REJ) {
+                to_register_fase(connection, debug);
+            }
+        }
+    }
+}
 
-
+/* TODO: add signal handler so parent can send signal
+ * if anything occurs */
+void cli(connection connection, Arg arg) {
+    while(1) {
+        switch(getcommand()) {
+            case SEND:
+                send_prot(connection, arg);
+                break;
+            case RECV:
+                get_prot(connection, arg);
+                break;
+            case QUIT:
+                /* TODO:handle first father/son end  then quit */
+                quit(connection);
+                break;
+            default:
+                debu("Not a client build function, to get use of it"
+                     "built-in commands ara: send-conf," 
+                     "recv-conf and quit\n", arg.debug);
+        }
+    }
+}
