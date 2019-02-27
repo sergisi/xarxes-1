@@ -76,12 +76,20 @@ typedef struct udp_package {
     char data[50];
 } udp_package;
 
+typedef struct tcp_package {
+    unsigned char type;
+    char name[7];
+    char mac[13];
+    char random[7];
+    char data[150];
+} tcp_package;
+
 
 /* All functions declarated */
 Arg argparser(int argc, char **argv);
 void debu(char *text, int debug);
 connection udp_sock(char config[CONFIG_SIZE], int debug);
-udp_connect connect(int server, int port, int debug);
+udp_connect udp_connection(int server, int port, int debug);
 int udp_recv(connection connection, udp_package *package);
 void udp_send(connection connection, unsigned char type, 
               char data[50]);
@@ -90,7 +98,7 @@ int time(int iter);
 int udp_package_checker(udp_package package, connection connection);
 void quit(connection connection); /* TODO*/
 void alive_fase(connection connection, int debug);
-
+int tcp_connection(connection connection, int debug);
 
 /* TODO: sighandler for alarm, as it causes
  * program termination. */
@@ -165,7 +173,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
         if(strcmp(word, "Nom") == 0){
             strcpy(conn.nom, strtok(NULL, " "));
         } else if(strcmp(word, "MAC") == 0) {
-            strcpy(conn.nom, strtok(NULL, " "));
+            strcpy(conn.mac, strtok(NULL, " "));
         } else if(strcmp(word, "Server") == 0) {
             word = (strtok(NULL, " "));
             if (strcmp(word, 'localhost') == 0){
@@ -183,17 +191,17 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     if(fclose(file_config) != 0) {
         debu("Error closing the file\n", debug);
     }
-    conn.udp_connect = connect(server, port, debug);
+    conn.udp_connect = udp_connection(server, port, debug);
     conn.state = DISCONNECTED;
     return conn;
 }
 
 /* TODO maybe it needs error checker*/
-udp_connect connect(int server, int port, int debug){
+udp_connect udp_connection(int server, int port, int debug){
     udp_connect connexion;
     connexion.socket = socket(AF_INET, SOCK_DGRAM, 0); /*Retorna el socket propi de l'aplicació ~*/
     if(connexion.socket < 0) {
-        debu("Error creating socket\n", debug);
+        debu("Error creating udp socket\n", debug);
         exit(1);
     }
     memset(&connexion.address, 0, sizeof(connexion.address));
@@ -338,7 +346,8 @@ void alive_fase(connection connection, int debug) {
 }
 
 /* TODO: add signal handler so parent can send signal
- * if anything occurs */
+ * if anything occurs. Signal should break the while 
+ * so data doesn't break corrupted. */
 void cli(connection connection, Arg arg) {
     while(1) {
         switch(getcommand()) {
@@ -358,4 +367,54 @@ void cli(connection connection, Arg arg) {
                      "recv-conf and quit\n", arg.debug);
         }
     }
+    exit(0);
+}
+
+int tcp_connection(connection connection, int debug) {
+    int tcp_socket;
+    struct sockaddr_in server_address;
+    tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(connection.tcp_port);
+    server_address.sin_addr.s_addr = 
+            connection.udp_connect.address.sin_addr.s_addr;
+    
+
+    if(connect(tcp_socket, (struct sockaddr *) &server_address, 
+                             sizeof(server_address)) == -1) {
+        debu("An error has occurred during the tcp connection, "
+             "You must restart manually\n", debug);
+    }
+    return tcp_socket;
+}
+
+int tcp_send(connection connection, int sock, unsigned char type, 
+             char data[150]){
+    int i;
+    tcp_package package;
+    package.type = type;
+    strcpy(package.name, connection.nom);
+    strcpy(package.mac, connection.mac);
+    for (i = 0; i < sizeof(package.random); i++) {
+        package.random[i] = connection.random[i];
+    }
+    strcpy(package.data, data);
+    send(sock, &package, sizeof(package), 0);
+}
+
+int tcp_package_checker(tcp_package package, connection connection) {
+    if(strcmp(package.name, connection.nom)){
+        return NAME;
+    } else if(strcmp(package.mac, connection.mac)) {
+        return MAC;
+    } else if(strcmp(package.random, connection.random)) {
+        return RANDOM;
+    } else {
+        return CORRECT;
+    }
+}
+
+int tcp_recv(int socket, tcp_package *package) {
+    return recv(socket, (void *) &package, sizeof(package), 0);
 }
