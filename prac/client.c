@@ -39,7 +39,7 @@ enum pac {REGISTER_REQ=0x00, REGISTER_ACK=0x01,
 enum states {DISCONNECTED, WAIT_REG, REGISTERED,
              ALIVE};
             
-enum time {N=3, T=2, M=4, P=8, S=5, Q=3, R=3, U=3};
+enum time {N=3, T=2, M=4, P=8, S=5, Q=3, R=3, U=3, W=4};
 enum command {SEND, RECV, QUIT};
 /* All structs used in the program */
 /* It will contain all arguments passed trough the call of the 
@@ -96,12 +96,11 @@ void udp_send(connection connection, unsigned char type,
 void register_fase(connection connection, int debug);
 int time(int iter);
 int udp_package_checker(udp_package package, connection connection);
-void quit(connection connection); /* TODO*/
 void alive_fase(connection connection, int debug);
 int tcp_connection(connection connection, int debug);
 
-/* TODO: sighandler for alarm, as it causes
- * program termination. */
+/* TODO: change alarm to select when possible, study how the timeout
+ * works in that function */
 int main(int argc, char **argv) {
     Arg arg;
     connection conn;
@@ -109,7 +108,9 @@ int main(int argc, char **argv) {
     conn = udp_sock(arg.config, arg.debug);
     register_fase(conn, arg.debug);
     /* Begin concurrent staying_alive and 
-     * CLI*/
+     * CLI, main should handle concurrency, 
+     * fucntions have benn made for staying_alive
+     * and cli management. */
     return 0;
 }
 
@@ -148,7 +149,7 @@ void debu(char *text, int debug){
     }
 }
 
-/* TODO: read is not safe. Scanf is not safe. I'm quite sure that
+/* TODO: I'm quite sure that
  * server ip reading doesn't work not even near that what I would 
  * expect. Maybe %i.%i.%i.%i will help? It's necessary tho? ask 
  * professor maybe */
@@ -169,25 +170,26 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     file_config = fopen(config, 'r'); /* TODO: Error checker
     * TODO:  Below line could fail if get line fails*/
     while(getline(&line, sizeof(line), file_config)) {
-        word = strtok(line, " ");
+        word = strtok(line, " \n");
         if(strcmp(word, "Nom") == 0){
-            strcpy(conn.nom, strtok(NULL, " "));
+            strcpy(conn.nom, strtok(NULL, " \n"));
         } else if(strcmp(word, "MAC") == 0) {
-            strcpy(conn.mac, strtok(NULL, " "));
+            strcpy(conn.mac, strtok(NULL, " \n"));
         } else if(strcmp(word, "Server") == 0) {
-            word = (strtok(NULL, " "));
+            word = (strtok(NULL, " \n")); /* use gethostbyname */
             if (strcmp(word, 'localhost') == 0){
                 server = INADDR_LOOPBACK;
             } else {
                 sscanf(word, "%i", &server);
             }
         } else if(strcmp(word, "Server-port") == 0) {
-            sscanf(strtok(NULL, " "), "%i", &port);
+            sscanf(strtok(NULL, " \n"), "%i", &port);
         } else {
             debu("Not an accepted parameter\n", debug);
         }
         word = strtok(NULL, " ");
     }
+    free(line);
     if(fclose(file_config) != 0) {
         debu("Error closing the file\n", debug);
     }
@@ -347,7 +349,8 @@ void alive_fase(connection connection, int debug) {
 
 /* TODO: add signal handler so parent can send signal
  * if anything occurs. Signal should break the while 
- * so data doesn't break corrupted. */
+ * so data doesn't break corrupted. With select may be
+ * unnecessary. */
 void cli(connection connection, Arg arg) {
     while(1) {
         switch(getcommand()) {
@@ -358,9 +361,10 @@ void cli(connection connection, Arg arg) {
                 get_prot(connection, arg);
                 break;
             case QUIT:
-                /* TODO:handle first father/son end  then quit */
+                /* TODO: handle first father/son end  then quit. With
+                 * select may be unnecessary */
                 quit(connection);
-                break;
+                break; /* Unreachable line, as quit exits*/
             default:
                 debu("Not a client build function, to get use of it"
                      "built-in commands ara: send-conf," 
@@ -417,4 +421,107 @@ int tcp_package_checker(tcp_package package, connection connection) {
 
 int tcp_recv(int socket, tcp_package *package) {
     return recv(socket, (void *) &package, sizeof(package), 0);
+}
+
+void send_prot(connection connection, Arg arg) {
+    int socket, n_bytes;
+    tcp_package package;
+    char namecfg[7+4], data[150];
+    strcpy(namecfg, connection.nom);
+    data[0] = '\0';
+    socket = tcp_connection(connection, arg.debug);
+    tcp_send(connection, socket, SEND_FILE, data);
+    alarm(W); /* TODO atm best solution seems, add sighandler*/
+    n_bytes = tcp_recv(socket, &package);
+    if (n_bytes != 0) {
+        if(tcp_package_checker(package, connection) == 0) {
+            if(package.type != SEND_ACK) {
+                if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
+                    send_file(connection, socket, arg);
+                } else {
+                    printf("ERROR_SEND: Name camp was not according to this node\n");
+                }
+            } else {
+                printf("ERROR_SEND: Package type was not GET_ACK: %x", package.type);
+            }
+        } else {
+            printf("ERROR_SEND: Camps were not send accordingly\n");
+        }
+
+    } else {
+        printf("ERROR_SEND: A trouble has occured during connexion with server."
+               "to try another time, please put the command\n");
+    }
+    close(socket);
+}
+
+
+void send_file(connection connection, int socket, Arg arg){
+    FILE *file;
+    char line[150];
+    file = fopen(arg.file, 'r');
+    while(getline(&line, sizeof(line), file) > 0) {
+        tcp_send(connection, socket, SEND_DATA, line);
+        debu("SEND_INFO: sending data to server...\n", arg.debug);
+    }
+    debu("SEND_INFO: sending end to server\n", arg.debug);
+    line[0]='\0'; /* so it sends a void string*/
+    tcp_send(connection, socket, SEND_END, line);   
+}
+
+
+void recv_prot(connection connection, Arg arg) {
+        int socket, n_bytes;
+    tcp_package package;
+    char namecfg[7+4], data[150];
+    strcpy(namecfg, connection.nom);
+    data[0] = '\0';
+    socket = tcp_connection(connection, arg.debug);
+    tcp_send(connection, socket, GET_FILE, data);
+    alarm(W); /* TODO atm best solution seems, add sighandler*/
+    n_bytes = tcp_recv(socket, &package);
+    if (n_bytes != 0) {
+        if(tcp_package_checker(package, connection) == 0) {
+            if(package.type != GET_ACK) {
+                if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
+                    get_file(connection, socket, arg);
+                } else {
+                    printf("ERROR_SEND: Name camp was not according to this node\n");
+                }
+            } else {
+                printf("ERROR_SEND: Package type was not GET_ACK: %x", package.type);
+            }
+        } else {
+            printf("ERROR_SEND: Camps were not send accordingly\n");
+        }
+
+    } else {
+        printf("ERROR_SEND: A trouble has occured during connexion with server."
+               "to try another time, please put the command\n");
+    }
+    close(socket);
+}
+
+
+void get_file(connection connection, int socket, Arg arg) {
+    FILE *file;
+    char line[150];
+    tcp_package package;
+    file = fopen(arg.file, 'w');
+    tcp_recv(socket, &package); 
+    while(package.type != GET_END) {
+        /* I don't know if the server sends or not sends \n*/
+        fprintf(file, "%s\n", package.data); 
+        debu("GET_INFO: sending data to server...\n", arg.debug);
+        tcp_recv(socket, &package); 
+    }
+    debu("GET_INFO: sending end to server\n", arg.debug);
+    line[0]='\0'; /* so it sends a void string*/
+    tcp_send(connection, socket, SEND_END, line);   
+}
+
+/* TODO: do, add heading*/
+void quit(connection connection) {
+    close(connection.udp_connect.socket);
+    exit(0);
 }
