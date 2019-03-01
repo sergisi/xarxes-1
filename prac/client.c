@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/socket.h>
@@ -11,6 +12,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <netdb.h>
+#include <signal.h>
 
 /* All constants */
 #define CONFIG_SIZE 20
@@ -84,6 +86,7 @@ typedef struct tcp_package {
     char data[150];
 } tcp_package;
 
+short cld_alive;
 
 /* All functions declarated */
 Arg argparser(int argc, char **argv);
@@ -104,14 +107,30 @@ int tcp_connection(connection connection, int debug);
 int main(int argc, char **argv) {
     Arg arg;
     connection conn;
+    int pd;
     arg = argparser(argc, argv);
     conn = udp_sock(arg.config, arg.debug);
-    register_fase(conn, arg.debug);
-    /* Begin concurrent staying_alive and 
-     * CLI, main should handle concurrency, 
-     * fucntions have benn made for staying_alive
-     * and cli management. */
-    return 0;
+    while(1) {
+        register_fase(conn, arg.debug);
+        /* Begin concurrent staying_alive and 
+        * CLI, main should handle concurrency, 
+        * functions have been made for staying_alive
+        * and cli management. */
+        cld_alive = 0;
+        pd = fork();
+        if (pd == -1) {
+            perror("An error has ocurred during fork");
+        } else if(pd == 0) {
+            signal(SIGUSR1, sigusr1handler);
+            cli(conn, arg);
+        } else {
+            signal(SIGUSR1, sigusr1handler);
+            alive_fase(conn, arg.debug);
+            kill(SIGUSR1, pd);
+            wait();
+        }
+    }
+    return 1;
 }
 
 Arg argparser(int argc, char **argv){
@@ -176,12 +195,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
         } else if(strcmp(word, "MAC") == 0) {
             strcpy(conn.mac, strtok(NULL, " \n"));
         } else if(strcmp(word, "Server") == 0) {
-            word = (strtok(NULL, " \n")); /* use gethostbyname */
-            if (strcmp(word, 'localhost') == 0){
-                server = INADDR_LOOPBACK;
-            } else {
-                sscanf(word, "%i", &server);
-            }
+            server = gethostbyname((strtok(NULL, " \n")));
         } else if(strcmp(word, "Server-port") == 0) {
             sscanf(strtok(NULL, " \n"), "%i", &port);
         } else {
@@ -249,27 +263,39 @@ int udp_recv(connection connection, udp_package *package) {
  *       add debugger, for god's sake!!*/
 void register_fase(connection connection, int debug) {
     char data[50];
+    fd_set rfds;
     udp_package package;
-    int bytes_readed;
+    short boolean;
     int q, p; /* Iter q and p respectively*/
+    struct timeval tv;
     memset((void *) data, '\0', sizeof(data));
     package.type = REGISTER_NACK; 
         /*initialize to some value so it doesnt breaks*/
     q = 0;
     while(q < Q) {
         p = 0;
-        bytes_readed = 0;
+        boolean = 0;
+
         connection.state = WAIT_REG;
-        while(p < P && bytes_readed == 0) {
+        while(p < P && boolean == 0) {
             udp_send(connection, REGISTER_REQ, data);
-            alarm(T*time(p));
-            bytes_readed = udp_recv(connection, &package);
-            p++;
+            tv.tv_sec = T*time(p);
+            FD_ZERO(&rfds);
+            FD_SET(connection.udp_connect.socket, &rfds);
+            select(connection.udp_connect.socket, &rfds
+                   , NULL, NULL, &tv);
+            if(FD_ISSET(connection.udp_connect.socket, &rfds)){
+                udp_recv(connection, &package);
+                boolean = 1;
+            } else {
+                p++;
+            }
         }
         if (package.type == REGISTER_REJ) {
             printf("Register fase rejected from server"
                    ", code error: %s\n", package.data);
-            quit(connection);
+            close(connection.udp_connect.socket);
+            exit(-1);
         } else if(package.type == REGISTER_ACK) {
             connection.state = REGISTERED;
             strcpy(connection.random, package.random);
@@ -321,30 +347,47 @@ int udp_package_checker(udp_package package, connection connection) {
 
 /* Add sighandler for end when child gets quit command */
 void alive_fase(connection connection, int debug) {
-    int alive_send, alive_recv;
-    int bytes_readed;
+    int alive;
+    fd_set rfds;
+    struct timeval tv;
     udp_package package;
     char data[50];
     memset((void *) data, '\0', sizeof(data));
-    alive_send = 0;
-    bytes_readed = 0;
-    alive_recv = 0;
-    while(alive_send - alive_recv < 0) {
-        udp_send(connection, ALIVE_INF, data);
-        alive_send++;
-        alarm(R);
-        bytes_readed = udp_recv(connection, &package);
-        if (bytes_readed != 0 && udp_package_checker(package, connection) != 0) {
-            sleep(R);
-            bytes_readed = 0;
-            connection.state = ALIVE;
-            if (package.type == ALIVE_ACK) {
-                alive_recv++;
-            } else if (package.type == ALIVE_REJ) {
-                to_register_fase(connection, debug);
+    alive = 0;
+    tv.tv_sec = R;
+    udp_send(connection, ALIVE_INF, data);
+    while(alive < 0 && cld_alive == 0) { /* Change number*/
+        alive++;
+        FD_ZERO(&rfds);
+        FD_SET(connection.udp_connect.socket, &rfds);
+        select(connection.udp_connect.socket, &rfds
+                   , NULL, NULL, &tv);
+        if (FD_ISSET(connection.udp_connect.socket, &rfds)) {
+            udp_recv(connection, &package);
+                if(udp_package_checker(package, connection) != 0) {
+                connection.state = ALIVE;
+                if (package.type == ALIVE_ACK) {
+                    alive--;
+                } else if (package.type == ALIVE_REJ) {
+                    to_register_fase(connection, debug);
+                }
             }
+        } else {
+            tv.tv_sec = R;
+            udp_send(connection, ALIVE_INF, data);
         }
     }
+    if(cld_alive == 0) {
+        debu("Packages alive lost, state pass to disconnected\n", debug);
+    } else {
+        printf("Shutting down\n");
+        wait();
+        exit(0);
+    }
+}
+
+void sigusr1handler(int status) {
+    cld_alive = 1;
 }
 
 /* TODO: add signal handler so parent can send signal
@@ -352,7 +395,7 @@ void alive_fase(connection connection, int debug) {
  * so data doesn't break corrupted. With select may be
  * unnecessary. */
 void cli(connection connection, Arg arg) {
-    while(1) {
+    while(cld_alive == 0) {
         switch(getcommand()) {
             case SEND:
                 send_prot(connection, arg);
@@ -363,7 +406,8 @@ void cli(connection connection, Arg arg) {
             case QUIT:
                 /* TODO: handle first father/son end  then quit. With
                  * select may be unnecessary */
-                quit(connection);
+                kill(getppid(), SIGUSR1);
+                exit(0);
                 break; /* Unreachable line, as quit exits*/
             default:
                 debu("Not a client build function, to get use of it"
@@ -371,7 +415,26 @@ void cli(connection connection, Arg arg) {
                      "recv-conf and quit\n", arg.debug);
         }
     }
+    debu("CLI is shutting down\n", arg.debug);
     exit(0);
+}
+
+/* TODO: I don't like it, redo*/
+int getcommand() {
+    char buffer[256];
+    int i;
+    char *word;
+    scanf("%s", buffer);
+    word = strtok(buffer, " ");
+    if(strcmp(word, "send-conf") == 0) {
+        return SEND;
+    } else if(strcmp(word, "send-conf") == 0) {
+        return RECV;
+    } else if(strcmp(word, "send-conf") == 0) {
+        return QUIT;
+    } else {
+        return -1;
+    }
 }
 
 int tcp_connection(connection connection, int debug) {
@@ -424,16 +487,22 @@ int tcp_recv(int socket, tcp_package *package) {
 }
 
 void send_prot(connection connection, Arg arg) {
-    int socket, n_bytes;
+    int socket;
     tcp_package package;
+    struct timeval tv;
+    fd_set rfds;
     char namecfg[7+4], data[150];
     strcpy(namecfg, connection.nom);
     data[0] = '\0';
     socket = tcp_connection(connection, arg.debug);
     tcp_send(connection, socket, SEND_FILE, data);
-    alarm(W); /* TODO atm best solution seems, add sighandler*/
-    n_bytes = tcp_recv(socket, &package);
-    if (n_bytes != 0) {
+    tv.tv_sec = W;
+    FD_ZERO(&rfds);
+    FD_SET(connection.udp_connect.socket, &rfds);
+    select(connection.udp_connect.socket, &rfds
+            , NULL, NULL, &tv);
+    if (FD_ISSET(socket, &rfds)) {
+        tcp_recv(socket, &package);
         if(tcp_package_checker(package, connection) == 0) {
             if(package.type != SEND_ACK) {
                 if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
@@ -489,7 +558,8 @@ void recv_prot(connection connection, Arg arg) {
                     printf("ERROR_SEND: Name camp was not according to this node\n");
                 }
             } else {
-                printf("ERROR_SEND: Package type was not GET_ACK: %x", package.type);
+                printf("ERROR_SEND: Package type was not GET_ACK: %x",
+                         package.type);
             }
         } else {
             printf("ERROR_SEND: Camps were not send accordingly\n");
@@ -520,8 +590,3 @@ void get_file(connection connection, int socket, Arg arg) {
     tcp_send(connection, socket, SEND_END, line);   
 }
 
-/* TODO: do, add heading*/
-void quit(connection connection) {
-    close(connection.udp_connect.socket);
-    exit(0);
-}
