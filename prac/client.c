@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <signal.h>
+#include <sys/wait.h>
 
 /* All constants */
 #define CONFIG_SIZE 20
@@ -20,8 +21,6 @@
 
 /* All enums */
 enum config {name, mac, server, port};
-enum states {DISCONNECTED, WAIT_REG, REGISTERED,
-             ALIVE};
 enum error_package{CORRECT, RANDOM, MAC, NAME};
 enum pac {REGISTER_REQ=0x00, REGISTER_ACK=0x01,
           REGISTER_NACK=0x02, REGISTER_REJ=0x03,
@@ -43,7 +42,7 @@ enum states {DISCONNECTED, WAIT_REG, REGISTERED,
             
 enum time {N=3, T=2, M=4, P=8, S=5, Q=3, R=3, U=3, W=4};
 enum command {SEND, RECV, QUIT};
-/* All structs used in the program */
+/* All structs used inudp_connect the program */
 /* It will contain all arguments passed trough the call of the 
  * the function */
 typedef struct arg {
@@ -51,6 +50,11 @@ typedef struct arg {
     char file[CONFIG_SIZE];
     int debug;
 } Arg;
+
+typedef struct udp_connect {
+    int socket;
+    struct sockaddr_in address;
+} udp_connect;
 
 /* All information needed for a all connections:
  * nom, MAC address, nombre aleatori i els dos sockets per
@@ -64,11 +68,6 @@ typedef struct connection {
     long tcp_port;
     
 } connection;
-
-typedef struct udp_connect {
-    int socket;
-    struct sockaddr_in address;
-} udp_connect;
 
 typedef struct udp_package {
     unsigned char type;
@@ -92,7 +91,7 @@ short cld_alive;
 Arg argparser(int argc, char **argv);
 void debu(char *text, int debug);
 connection udp_sock(char config[CONFIG_SIZE], int debug);
-udp_connect udp_connection(int server, int port, int debug);
+udp_connect udp_connection(struct hostent* ent, int port, int debug);
 int udp_recv(connection connection, udp_package *package);
 void udp_send(connection connection, unsigned char type, 
               char data[50]);
@@ -101,6 +100,13 @@ int time(int iter);
 int udp_package_checker(udp_package package, connection connection);
 void alive_fase(connection connection, int debug);
 int tcp_connection(connection connection, int debug);
+void sigusr1handler(int status);
+void cli(connection connection, Arg arg);
+void send_prot(connection connection, Arg arg);
+void send_file(connection connection, int socket, Arg arg);
+void get_prot(connection connection, Arg arg);
+void get_file(connection connection, int socket, Arg arg);
+int getcommand();
 
 /* TODO: change alarm to select when possible, study how the timeout
  * works in that function */
@@ -127,14 +133,14 @@ int main(int argc, char **argv) {
             signal(SIGUSR1, sigusr1handler);
             alive_fase(conn, arg.debug);
             kill(SIGUSR1, pd);
-            wait();
+            wait(NULL);
         }
     }
     return 1;
 }
 
 Arg argparser(int argc, char **argv){
-    int c; //temporal integer for switch.
+    int c; /* temporal integer for switch. */
     Arg arg;
     
     arg.debug = 0;
@@ -176,8 +182,9 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     connection conn;
     FILE *file_config;
     char *word;
-    int server, port;
+    int port;
     char *line;
+    struct hostent *ent;
 
 
     line = (char *)malloc(LINE_SIZE * sizeof(char));
@@ -186,7 +193,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
         perror("Unable to allocate buffer");
         exit(1);
     }
-    file_config = fopen(config, 'r'); /* TODO: Error checker
+    file_config = fopen(config, (const char *) 'r'); /* TODO: Error checker
     * TODO:  Below line could fail if get line fails*/
     while(getline(&line, sizeof(line), file_config)) {
         word = strtok(line, " \n");
@@ -195,7 +202,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
         } else if(strcmp(word, "MAC") == 0) {
             strcpy(conn.mac, strtok(NULL, " \n"));
         } else if(strcmp(word, "Server") == 0) {
-            server = gethostbyname((strtok(NULL, " \n")));
+            ent = gethostbyname((strtok(NULL, " \n")));
         } else if(strcmp(word, "Server-port") == 0) {
             sscanf(strtok(NULL, " \n"), "%i", &port);
         } else {
@@ -207,24 +214,24 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     if(fclose(file_config) != 0) {
         debu("Error closing the file\n", debug);
     }
-    conn.udp_connect = udp_connection(server, port, debug);
+    conn.udp_connect = udp_connection(ent, port, debug);
     conn.state = DISCONNECTED;
     return conn;
 }
 
 /* TODO maybe it needs error checker*/
-udp_connect udp_connection(int server, int port, int debug){
+udp_connect udp_connection(struct hostent* ent, int port, int debug) {
     udp_connect connexion;
     connexion.socket = socket(AF_INET, SOCK_DGRAM, 0); /*Retorna el socket propi de l'aplicació ~*/
     if(connexion.socket < 0) {
         debu("Error creating udp socket\n", debug);
         exit(1);
     }
-    memset(&connexion.address, 0, sizeof(connexion.address));
-    /*Specify an address for the socket */
-    connexion.address.sin_family = AF_INET;
-    connexion.address.sin_port = htons(port);
-    connexion.address.sin_addr.s_addr = htons(server);
+
+	memset(&connexion.address, 0, sizeof(struct sockaddr_in));
+	connexion.address.sin_family=AF_INET;
+	connexion.address.sin_addr.s_addr=(((struct in_addr *)ent->h_addr_list[0])->s_addr);
+	connexion.address.sin_port=htons(port);
     return connexion;
 }
 
@@ -246,7 +253,7 @@ void udp_send(connection connection, unsigned char type,
     }
     strcpy(package.data, data);
     sendto(connection.udp_connect.socket, (void *) &package, 
-           sizof(package), 0, 
+           sizeof(package), 0, 
            (const struct sockaddr *) &connection.udp_connect.address,
            sizeof(connection.udp_connect.address));
 }
@@ -254,9 +261,9 @@ void udp_send(connection connection, unsigned char type,
 /* Doesnt check errors */
 int udp_recv(connection connection, udp_package *package) {
     return recvfrom(connection.udp_connect.socket, (void *) &package, 
-           sizof(package), 0, 
-           (const struct sockaddr *) &connection.udp_connect.address,
-           sizeof(connection.udp_connect.address));
+           sizeof(package), 0, 
+           (struct sockaddr *) &connection.udp_connect.address,
+           (socklen_t *) sizeof(connection.udp_connect.address));
 }
 
 /* TODO: add checker for MAC addres and name.
@@ -299,7 +306,7 @@ void register_fase(connection connection, int debug) {
         } else if(package.type == REGISTER_ACK) {
             connection.state = REGISTERED;
             strcpy(connection.random, package.random);
-            sscanf(package.data, "%ld", connection.tcp_port);
+            sscanf(package.data, "%ld", &connection.tcp_port);
         } else { 
             /* Either if its ignored enough times or it 
              * is NACK will go down here*/
@@ -369,7 +376,7 @@ void alive_fase(connection connection, int debug) {
                 if (package.type == ALIVE_ACK) {
                     alive--;
                 } else if (package.type == ALIVE_REJ) {
-                    to_register_fase(connection, debug);
+                    break; /* Should make it better */
                 }
             }
         } else {
@@ -381,7 +388,7 @@ void alive_fase(connection connection, int debug) {
         debu("Packages alive lost, state pass to disconnected\n", debug);
     } else {
         printf("Shutting down\n");
-        wait();
+        wait(NULL);
         exit(0);
     }
 }
@@ -422,7 +429,6 @@ void cli(connection connection, Arg arg) {
 /* TODO: I don't like it, redo*/
 int getcommand() {
     char buffer[256];
-    int i;
     char *word;
     scanf("%s", buffer);
     word = strtok(buffer, " ");
@@ -467,7 +473,7 @@ int tcp_send(connection connection, int sock, unsigned char type,
         package.random[i] = connection.random[i];
     }
     strcpy(package.data, data);
-    send(sock, &package, sizeof(package), 0);
+    return send(sock, &package, sizeof(package), 0);
 }
 
 int tcp_package_checker(tcp_package package, connection connection) {
@@ -525,10 +531,10 @@ void send_prot(connection connection, Arg arg) {
 }
 
 
-void send_file(connection connection, int socket, Arg arg){
+void send_file(connection connection, int socket, Arg arg) {
     FILE *file;
     char line[150];
-    file = fopen(arg.file, 'r');
+    file = fopen(arg.file, (const char *) 'r');
     while(getline(&line, sizeof(line), file) > 0) {
         tcp_send(connection, socket, SEND_DATA, line);
         debu("SEND_INFO: sending data to server...\n", arg.debug);
@@ -539,7 +545,7 @@ void send_file(connection connection, int socket, Arg arg){
 }
 
 
-void recv_prot(connection connection, Arg arg) {
+void get_prot(connection connection, Arg arg) {
         int socket, n_bytes;
     tcp_package package;
     char namecfg[7+4], data[150];
@@ -577,7 +583,7 @@ void get_file(connection connection, int socket, Arg arg) {
     FILE *file;
     char line[150];
     tcp_package package;
-    file = fopen(arg.file, 'w');
+    file = fopen(arg.file, (const char *) 'w');
     tcp_recv(socket, &package); 
     while(package.type != GET_END) {
         /* I don't know if the server sends or not sends \n*/
