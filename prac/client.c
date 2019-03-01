@@ -186,7 +186,7 @@ void debu(char *text, int debug){
 connection udp_sock(char config[CONFIG_SIZE], int debug) {
     connection conn;
     FILE *file_config;
-    char *word;
+    char word[2][20];
     int port;
     char *line;
     struct hostent *ent;
@@ -202,20 +202,19 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     file_config = fopen(config, "r"); /* TODO: Error checker
     * TODO:  Below line could fail if get line fails*/
     debu("INIT_UDP_SOCK_INFO: opened configuration file\n", debug);
-    while(getline(&line, sizeof(line), file_config) >= 0) {
+    while(fscanf(file_config, "%s %s", word[0], word[1]) != EOF) {
         debu("INIT_UDP_SOCK_INFO: read a line of config\n", debug);
-        word = strtok(line, " \n");
-        if(strcmp(word, "Nom") == 0){
-            strcpy(conn.nom, strtok(NULL, " \n"));
+        if(strcmp(word[0], "Nom") == 0){
+            strcpy(conn.nom, word[1]);
             debu("INIT_UDP_SOCK_INFO: name initialized\n", debug);
-        } else if(strcmp(word, "MAC") == 0) {
-            strcpy(conn.mac, strtok(NULL, " \n"));
+        } else if(strcmp(word[0], "MAC") == 0) {
+            strcpy(conn.mac, word[1]);
             debu("INIT_UDP_SOCK_INFO: mac initialized\n", debug);
-        } else if(strcmp(word, "Server") == 0) {
-            ent = gethostbyname((strtok(NULL, " \n")));
+        } else if(strcmp(word[0], "Server") == 0) {
+            ent = gethostbyname(word[1]);
             debu("INIT_UDP_SOCK_INFO: gethostbyname reached\n", debug);
-        } else if(strcmp(word, "Server-port") == 0) {
-            sscanf(strtok(NULL, " \n"), "%i", &port);
+        } else if(strcmp(word[0], "Server-port") == 0) {
+            sscanf(word[1], "%i", &port);
             debu("INIT_UDP_SOCK_INFO: port initialized\n", debug);
         } else {
             debu("Not an accepted parameter\n", debug);
@@ -257,7 +256,7 @@ void udp_send(connection connection, unsigned char type,
     strcpy(package.mac, connection.mac);
     if (connection.state == DISCONNECTED 
        || connection.state == WAIT_REG) {
-           memset(package.random, 0, sizeof(package.random));
+           memset(package.random, '0', sizeof(package.random));
     } else {
         /* sizeof(char) == 1, so sizeof(char[size]) == size )*/
         for(i = 0; i < sizeof(package.random); i++) {
@@ -289,23 +288,28 @@ void register_fase(connection connection, int debug) {
     int q, p; /* Iter q and p respectively*/
     struct timeval tv;
     memset((void *) data, '\0', sizeof(data));
+    debu("REGISTER_INFO: initialized data\n", debug);
     package.type = REGISTER_NACK; 
         /*initialize to some value so it doesnt breaks*/
     q = 0;
     while(q < Q) {
+        debu("REGISTER_INFO: initialized process to register\n", debug);
         p = 0;
         boolean = 0;
 
         connection.state = WAIT_REG;
         while(p < P && boolean == 0) {
+            debu("REGISTER_INFO: sending REGISTER_REQ\n", debug);
             udp_send(connection, REGISTER_REQ, data);
             tv.tv_sec = T*time(p);
             FD_ZERO(&rfds);
             FD_SET(connection.udp_connect.socket, &rfds);
             select(connection.udp_connect.socket, &rfds
                    , NULL, NULL, &tv);
+            
             if(FD_ISSET(connection.udp_connect.socket, &rfds)){
                 udp_recv(connection, &package);
+                debu("REGISTER_INFO: recv package\n", debug);
                 boolean = 1;
             } else {
                 p++;
@@ -317,10 +321,12 @@ void register_fase(connection connection, int debug) {
             close(connection.udp_connect.socket);
             exit(-1);
         } else if(package.type == REGISTER_ACK) {
+            debu("REGISTER_INFO: registered successfully\n", debug);
             connection.state = REGISTERED;
             strcpy(connection.random, package.random);
             sscanf(package.data, "%ld", &connection.tcp_port);
         } else { 
+            debu("REGISTER_INFO: not an ACK package\n", debug);
             /* Either if its ignored enough times or it 
              * is NACK will go down here*/
             q++;
@@ -546,11 +552,14 @@ void send_prot(connection connection, Arg arg) {
 
 void send_file(connection connection, int socket, Arg arg) {
     FILE *file;
-    char line[150];
+    char *line;
     file = fopen(arg.file, "r");
-    while(getline(&line, sizeof(line), file) > 0) {
+    line = (char *) malloc(150*sizeof(char));
+    line = fgets(line, 150, file);
+    while(line != NULL) {
         tcp_send(connection, socket, SEND_DATA, line);
         debu("SEND_INFO: sending data to server...\n", arg.debug);
+        line = fgets(line, 150, file);
     }
     debu("SEND_INFO: sending end to server\n", arg.debug);
     line[0]='\0'; /* so it sends a void string*/
