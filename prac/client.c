@@ -1,7 +1,8 @@
 /* Includes done to the project */
-#include <getopt.h>
 #include <stdio.h>
+#include <signal.h>
 #include <sys/types.h>
+#include <getopt.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <fcntl.h>
@@ -12,12 +13,11 @@
 #include <string.h>
 #include <unistd.h>
 #include <netdb.h>
-#include <signal.h>
 #include <sys/wait.h>
 
 /* All constants */
 #define CONFIG_SIZE 20
-#define LINE_SIZE 35
+#define LINE_SIZE 50
 
 /* All enums */
 enum config {name, mac, server, port};
@@ -115,9 +115,12 @@ int main(int argc, char **argv) {
     connection conn;
     int pd;
     arg = argparser(argc, argv);
+    debu("Finished argparser\n", arg.debug);
     conn = udp_sock(arg.config, arg.debug);
     while(1) {
+        debu("Starting register fase\n", arg.debug);
         register_fase(conn, arg.debug);
+        debu("Register fase finished\n", arg.debug);
         /* Begin concurrent staying_alive and 
         * CLI, main should handle concurrency, 
         * functions have been made for staying_alive
@@ -128,9 +131,11 @@ int main(int argc, char **argv) {
             perror("An error has ocurred during fork");
         } else if(pd == 0) {
             signal(SIGUSR1, sigusr1handler);
+            debu("Starting CLI\n", arg.debug);
             cli(conn, arg);
         } else {
             signal(SIGUSR1, sigusr1handler);
+            debu("Starting alive fase\n", arg.debug);
             alive_fase(conn, arg.debug);
             kill(SIGUSR1, pd);
             wait(NULL);
@@ -186,36 +191,44 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     char *line;
     struct hostent *ent;
 
-
-    line = (char *)malloc(LINE_SIZE * sizeof(char));
+    debu("INIT_UDP_SOCK_INFO: initialized variables\n", debug);
+    line = (char *) malloc(LINE_SIZE * sizeof(char));
     if( line == NULL)
     {
         perror("Unable to allocate buffer");
         exit(1);
     }
-    file_config = fopen(config, (const char *) 'r'); /* TODO: Error checker
+
+    file_config = fopen(config, "r"); /* TODO: Error checker
     * TODO:  Below line could fail if get line fails*/
-    while(getline(&line, sizeof(line), file_config)) {
+    debu("INIT_UDP_SOCK_INFO: opened configuration file\n", debug);
+    while(getline(&line, sizeof(line), file_config) >= 0) {
+        debu("INIT_UDP_SOCK_INFO: read a line of config\n", debug);
         word = strtok(line, " \n");
         if(strcmp(word, "Nom") == 0){
             strcpy(conn.nom, strtok(NULL, " \n"));
+            debu("INIT_UDP_SOCK_INFO: name initialized\n", debug);
         } else if(strcmp(word, "MAC") == 0) {
             strcpy(conn.mac, strtok(NULL, " \n"));
+            debu("INIT_UDP_SOCK_INFO: mac initialized\n", debug);
         } else if(strcmp(word, "Server") == 0) {
             ent = gethostbyname((strtok(NULL, " \n")));
+            debu("INIT_UDP_SOCK_INFO: gethostbyname reached\n", debug);
         } else if(strcmp(word, "Server-port") == 0) {
             sscanf(strtok(NULL, " \n"), "%i", &port);
+            debu("INIT_UDP_SOCK_INFO: port initialized\n", debug);
         } else {
             debu("Not an accepted parameter\n", debug);
         }
-        word = strtok(NULL, " ");
     }
     free(line);
     if(fclose(file_config) != 0) {
         debu("Error closing the file\n", debug);
     }
+    debu("INIT_UDP_SOCK_INFO: Starting udp_socket\n", debug);
     conn.udp_connect = udp_connection(ent, port, debug);
     conn.state = DISCONNECTED;
+    debu("STATE_INFO: DISCONNECTED\n", debug);
     return conn;
 }
 
@@ -534,7 +547,7 @@ void send_prot(connection connection, Arg arg) {
 void send_file(connection connection, int socket, Arg arg) {
     FILE *file;
     char line[150];
-    file = fopen(arg.file, (const char *) 'r');
+    file = fopen(arg.file, "r");
     while(getline(&line, sizeof(line), file) > 0) {
         tcp_send(connection, socket, SEND_DATA, line);
         debu("SEND_INFO: sending data to server...\n", arg.debug);
@@ -583,7 +596,7 @@ void get_file(connection connection, int socket, Arg arg) {
     FILE *file;
     char line[150];
     tcp_package package;
-    file = fopen(arg.file, (const char *) 'w');
+    file = fopen(arg.file,  "w");
     tcp_recv(socket, &package); 
     while(package.type != GET_END) {
         /* I don't know if the server sends or not sends \n*/
