@@ -15,6 +15,8 @@
 #include <netdb.h>
 #include <sys/wait.h>
 
+/* Don't know if needed, as is POSIX 2001 and 2008*/
+
 /* All constants */
 #define CONFIG_SIZE 20
 #define LINE_SIZE 50
@@ -56,6 +58,10 @@ typedef struct udp_connect {
     struct sockaddr_in address;
 } udp_connect;
 
+struct server {
+    char nom[7];
+    char mac[13];
+};
 /* All information needed for a all connections:
  * nom, MAC address, nombre aleatori i els dos sockets per
  * a la connexio de udp */
@@ -66,7 +72,7 @@ typedef struct connection {
     udp_connect udp_connect;
     enum states state;
     long tcp_port;
-    
+    struct server server;
 } connection;
 
 typedef struct udp_package {
@@ -85,28 +91,27 @@ typedef struct tcp_package {
     char data[150];
 } tcp_package;
 
-short cld_alive;
-
 /* All functions declarated */
 Arg argparser(int argc, char **argv);
-void debu(char *text, int debug);
+void debu(char *text, int debug, int level);
 connection udp_sock(char config[CONFIG_SIZE], int debug);
 udp_connect udp_connection(struct hostent* ent, int port, int debug);
 int udp_recv(connection connection, udp_package *package);
 void udp_send(connection connection, unsigned char type, 
-              char data[50]);
-void register_fase(connection connection, int debug);
+              char data[50], int debug);
+void register_fase(connection *connection, int debug);
 int time(int iter);
 int udp_package_checker(udp_package package, connection connection);
-void alive_fase(connection connection, int debug);
+void alive_fase(connection connection, int debug, int pipes[2][2]);
 int tcp_connection(connection connection, int debug);
-void sigusr1handler(int status);
-void cli(connection connection, Arg arg);
+void cli(connection connection, Arg arg, int pipes[2][2]);
 void send_prot(connection connection, Arg arg);
 void send_file(connection connection, int socket, Arg arg);
 void get_prot(connection connection, Arg arg);
 void get_file(connection connection, int socket, Arg arg);
 int getcommand();
+void debu_tcp_package(tcp_package package, int debug, int level);
+void debu_udp_package(udp_package package, int debug, int level);
 
 /* TODO: change alarm to select when possible, study how the timeout
  * works in that function */
@@ -114,31 +119,40 @@ int main(int argc, char **argv) {
     Arg arg;
     connection conn;
     int pd;
+    int pipes[2][2];
+
     arg = argparser(argc, argv);
-    debu("Finished argparser\n", arg.debug);
+    debu("Finished argparser\n", arg.debug, 1);
     conn = udp_sock(arg.config, arg.debug);
     while(1) {
-        debu("Starting register fase\n", arg.debug);
-        register_fase(conn, arg.debug);
-        debu("Register fase finished\n", arg.debug);
+        debu("Starting register fase\n", arg.debug, 1);
+        register_fase(&conn, arg.debug);
+        debu("Register fase finished\n", arg.debug, 1);
         /* Begin concurrent staying_alive and 
         * CLI, main should handle concurrency, 
         * functions have been made for staying_alive
         * and cli management. */
-        cld_alive = 0;
+        if(pipe(pipes[0]) != 0 ) {
+            printf("Error creating a pipe\n");
+        }
+        if(pipe(pipes[1]) != 0 ) {
+            printf("Error creating a pipe\n");
+        }
         pd = fork();
         if (pd == -1) {
             perror("An error has ocurred during fork");
         } else if(pd == 0) {
-            signal(SIGUSR1, sigusr1handler);
-            debu("Starting CLI\n", arg.debug);
-            cli(conn, arg);
+            close(pipes[0][0]);
+            close(pipes[1][1]);
+            debu("Starting CLI\n", arg.debug, 1);
+            cli(conn, arg, pipes);
         } else {
-            signal(SIGUSR1, sigusr1handler);
-            debu("Starting alive fase\n", arg.debug);
-            alive_fase(conn, arg.debug);
-            kill(SIGUSR1, pd);
-            wait(NULL);
+            close(pipes[0][1]);
+            close(pipes[1][0]);
+            debu("Starting alive fase\n", arg.debug, 1);
+            alive_fase(conn, arg.debug, pipes);
+            debu("Finished alive fase\n", arg.debug, 1);
+
         }
     }
     return 1;
@@ -151,11 +165,11 @@ Arg argparser(int argc, char **argv){
     arg.debug = 0;
     sprintf(arg.config, "client.cfg");
     sprintf(arg.file, "boot.cfg");
-    while((c = getopt(argc, argv, "dc:f:")) != -1) {
+    while((c = getopt(argc, argv, "d:c:f:")) != -1) {
         switch (c)
         {
             case 'd':
-                arg.debug = 1;
+                sscanf(optarg, "%i", &arg.debug);
                 break;
             case 'c':
                 sprintf(arg.config, "%s", optarg);
@@ -173,9 +187,27 @@ Arg argparser(int argc, char **argv){
     return arg;
 }
 
-void debu(char *text, int debug){
-    if (debug != 0) {
+void debu(char *text, int debug, int level){
+    if (level <= debug) {
         printf("%s", text);
+    }
+}
+
+void debu_udp_package(udp_package package, int debug, int level) {
+        if (level <= debug) {
+            printf("PACKAGE_INFO: the data in package is:\n"
+                    "\ttype: %x\tname: %s\tmac: %s\talea: %s\tdata: %s\n",
+                    package.type, package.name, package.mac, package.random,
+                    package.data);
+    }
+}
+
+void debu_tcp_package(tcp_package package, int debug, int level) {
+        if (level <= debug) {
+            printf("PACKAGE_INFO: the data in package is:\n"
+                    "\ttype: %x\tname: %s\tmac: %s\talea: %s\tdata: %s\n",
+                    package.type, package.name, package.mac, package.random,
+                    package.data);
     }
 }
 
@@ -191,7 +223,7 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
     char *line;
     struct hostent *ent;
 
-    debu("INIT_UDP_SOCK_INFO: initialized variables\n", debug);
+    debu("INIT_UDP_SOCK_INFO: initialized variables\n", debug, 2);
     line = (char *) malloc(LINE_SIZE * sizeof(char));
     if( line == NULL)
     {
@@ -201,33 +233,33 @@ connection udp_sock(char config[CONFIG_SIZE], int debug) {
 
     file_config = fopen(config, "r"); /* TODO: Error checker
     * TODO:  Below line could fail if get line fails*/
-    debu("INIT_UDP_SOCK_INFO: opened configuration file\n", debug);
+    debu("INIT_UDP_SOCK_INFO: opened configuration file\n", debug, 9);
     while(fscanf(file_config, "%s %s", word[0], word[1]) != EOF) {
-        debu("INIT_UDP_SOCK_INFO: read a line of config\n", debug);
+        debu("INIT_UDP_SOCK_INFO: read a line of config\n", debug, 9);
         if(strcmp(word[0], "Nom") == 0){
             strcpy(conn.nom, word[1]);
-            debu("INIT_UDP_SOCK_INFO: name initialized\n", debug);
+            debu("INIT_UDP_SOCK_INFO: name initialized\n", debug, 9);
         } else if(strcmp(word[0], "MAC") == 0) {
             strcpy(conn.mac, word[1]);
-            debu("INIT_UDP_SOCK_INFO: mac initialized\n", debug);
+            debu("INIT_UDP_SOCK_INFO: mac initialized\n", debug, 9);
         } else if(strcmp(word[0], "Server") == 0) {
             ent = gethostbyname(word[1]);
-            debu("INIT_UDP_SOCK_INFO: gethostbyname reached\n", debug);
+            debu("INIT_UDP_SOCK_INFO: gethostbyname reached\n", debug, 9);
         } else if(strcmp(word[0], "Server-port") == 0) {
             sscanf(word[1], "%i", &port);
-            debu("INIT_UDP_SOCK_INFO: port initialized\n", debug);
+            debu("INIT_UDP_SOCK_INFO: port initialized\n", debug, 9);
         } else {
-            debu("Not an accepted parameter\n", debug);
+            debu("Not an accepted parameter\n", debug, 9);
         }
     }
     free(line);
     if(fclose(file_config) != 0) {
-        debu("Error closing the file\n", debug);
+        debu("Error closing the file\n", debug, 1);
     }
-    debu("INIT_UDP_SOCK_INFO: Starting udp_socket\n", debug);
+    debu("INIT_UDP_SOCK_INFO: Starting udp_socket\n", debug, 1);
     conn.udp_connect = udp_connection(ent, port, debug);
     conn.state = DISCONNECTED;
-    debu("STATE_INFO: DISCONNECTED\n", debug);
+    debu("STATE_INFO: DISCONNECTED\n", debug, 1);
     return conn;
 }
 
@@ -236,7 +268,7 @@ udp_connect udp_connection(struct hostent* ent, int port, int debug) {
     udp_connect connexion;
     connexion.socket = socket(AF_INET, SOCK_DGRAM, 0); /*Retorna el socket propi de l'aplicació ~*/
     if(connexion.socket < 0) {
-        debu("Error creating udp socket\n", debug);
+        debu("Error creating udp socket\n", debug, 1);
         exit(1);
     }
 
@@ -248,22 +280,18 @@ udp_connect udp_connection(struct hostent* ent, int port, int debug) {
 }
 
 void udp_send(connection connection, unsigned char type, 
-              char data[50]) {
-    int i;
+              char data[50], int debug) {
     udp_package package;
     package.type = type;
     strcpy(package.name, connection.nom);
     strcpy(package.mac, connection.mac);
-    if (connection.state == DISCONNECTED 
-       || connection.state == WAIT_REG) {
-           memset(package.random, '0', sizeof(package.random));
-    } else {
-        /* sizeof(char) == 1, so sizeof(char[size]) == size )*/
-        for(i = 0; i < sizeof(package.random); i++) {
-            package.random[i] = connection.random[i];
-        }
-    }
+
+    /* sizeof(char) == 1, so sizeof(char[size]) == size )*/
+    strcpy(package.random, connection.random);
+
     strcpy(package.data, data);
+    debu("UDP_SEND > ", debug, 9);
+    debu_udp_package(package, debug, 9);
     sendto(connection.udp_connect.socket, (void *) &package, 
            sizeof(package), 0, 
            (const struct sockaddr *) &connection.udp_connect.address,
@@ -272,15 +300,15 @@ void udp_send(connection connection, unsigned char type,
 
 /* Doesnt check errors */
 int udp_recv(connection connection, udp_package *package) {
-    return recvfrom(connection.udp_connect.socket, (void *) &package, 
-           sizeof(package), 0, 
+    return recvfrom(connection.udp_connect.socket, (void *) package, 
+           sizeof(*package), 0, 
            (struct sockaddr *) &connection.udp_connect.address,
            (socklen_t *) sizeof(connection.udp_connect.address));
 }
 
 /* TODO: add checker for MAC addres and name.
  *       add debugger, for god's sake!!*/
-void register_fase(connection connection, int debug) {
+void register_fase(connection *connection, int debug) {
     char data[50];
     fd_set rfds;
     udp_package package;
@@ -288,29 +316,30 @@ void register_fase(connection connection, int debug) {
     int q, p; /* Iter q and p respectively*/
     struct timeval tv;
     memset((void *) data, '\0', sizeof(data));
-    debu("REGISTER_INFO: initialized data\n", debug);
-    package.type = REGISTER_NACK; 
+    debu("REGISTER_INFO: initialized data\n", debug, 1);
+    package.type = REGISTER_NACK;
+    strcpy((*connection).random, "000000");
         /*initialize to some value so it doesnt breaks*/
     q = 0;
-    while(q < Q) {
-        debu("REGISTER_INFO: initialized process to register\n", debug);
+    boolean = 0;
+    while(q < Q && boolean == 0) {
+        debu("REGISTER_INFO: initialized process to register\n", debug, 5);
         p = 0;
-        boolean = 0;
-
-        connection.state = WAIT_REG;
+        (*connection).state = WAIT_REG;
         while(p < P && boolean == 0) {
-            debu("REGISTER_INFO: sending REGISTER_REQ\n", debug);
-            udp_send(connection, REGISTER_REQ, data);
+            debu("REGISTER_INFO: sending REGISTER_REQ\n", debug, 5);
+            udp_send(*connection, REGISTER_REQ, data, debug);
             tv.tv_sec = T*time(p);
+            tv.tv_usec = 0;
             FD_ZERO(&rfds);
-            FD_SET(connection.udp_connect.socket, &rfds);
-            select(connection.udp_connect.socket, &rfds
+            FD_SET((*connection).udp_connect.socket, &rfds);
+            select((*connection).udp_connect.socket + 1, &rfds
                    , NULL, NULL, &tv);
-            
-            if(FD_ISSET(connection.udp_connect.socket, &rfds)){
-                udp_recv(connection, &package);
-                debu("REGISTER_INFO: recv package\n", debug);
+            if(FD_ISSET((*connection).udp_connect.socket, &rfds)){
+                udp_recv((*connection), &package);
+                debu("REGISTER_INFO: recv package\n", debug, 5);
                 boolean = 1;
+                debu_udp_package(package, debug, 5);
             } else {
                 p++;
             }
@@ -318,21 +347,27 @@ void register_fase(connection connection, int debug) {
         if (package.type == REGISTER_REJ) {
             printf("Register fase rejected from server"
                    ", code error: %s\n", package.data);
-            close(connection.udp_connect.socket);
+            close((*connection).udp_connect.socket);
             exit(-1);
         } else if(package.type == REGISTER_ACK) {
-            debu("REGISTER_INFO: registered successfully\n", debug);
-            connection.state = REGISTERED;
-            strcpy(connection.random, package.random);
-            sscanf(package.data, "%ld", &connection.tcp_port);
+            debu("REGISTER_INFO: registered successfully\n", debug, 1);
+            (*connection).state = REGISTERED;
+            strcpy((*connection).random, package.random);
+            strcpy((*connection).server.nom, package.name);
+            strcpy((*connection).server.mac, package.mac);
+            sscanf(package.data, "%ld", &(*connection).tcp_port);
         } else { 
-            debu("REGISTER_INFO: not an ACK package\n", debug);
+            debu("REGISTER_INFO: not an ACK package\n", debug, 2);
             /* Either if its ignored enough times or it 
              * is NACK will go down here*/
             q++;
         }
     }
-    udp_send(connection, REGISTER_REQ, data);
+    if((*connection).state != REGISTERED) {
+        printf("Unnable to register to server\n");
+        close((*connection).udp_connect.socket);
+        exit(-1);
+    }
 }
 
 /* Some of this may be needed to be CONSTANTS in
@@ -360,11 +395,11 @@ int time(int i) {
  * Type package test is left to the protocol management,
  * as it would make this function unnecessary large*/
 int udp_package_checker(udp_package package, connection connection) {
-    if(strcmp(package.name, connection.nom)){
+    if(strcmp(package.name, connection.server.nom) == 0){
         return NAME;
-    } else if(strcmp(package.mac, connection.mac)) {
+    } else if(strcmp(package.mac, connection.server.mac) == 0) {
         return MAC;
-    } else if(strcmp(package.random, connection.random)) {
+    } else if(strcmp(package.random, connection.random) == 0) {
         return RANDOM;
     } else {
         return CORRECT;
@@ -372,76 +407,111 @@ int udp_package_checker(udp_package package, connection connection) {
 }
 
 /* Add sighandler for end when child gets quit command */
-void alive_fase(connection connection, int debug) {
+void alive_fase(connection connection, int debug, int pipes[2][2]) {
     int alive;
+    short boolean;
     fd_set rfds;
     struct timeval tv;
     udp_package package;
     char data[50];
     memset((void *) data, '\0', sizeof(data));
-    alive = 0;
+    debu("ALIVE_INFO: started alive process\n", debug, 1);
+    boolean = 0;
     tv.tv_sec = R;
-    udp_send(connection, ALIVE_INF, data);
-    while(alive < 0 && cld_alive == 0) { /* Change number*/
-        alive++;
+    debu("Sending first alive\n", debug, 9);
+    udp_send(connection, ALIVE_INF, data, debug);
+    alive = 1;
+    while(alive < U && boolean == 0) { /* Change number*/
         FD_ZERO(&rfds);
         FD_SET(connection.udp_connect.socket, &rfds);
-        select(connection.udp_connect.socket, &rfds
+        FD_SET(pipes[0][0], &rfds);
+        sleep(R);
+        tv.tv_usec = 1;
+        tv.tv_sec = 0;
+        select(pipes[0][0] + 1, &rfds
                    , NULL, NULL, &tv);
         if (FD_ISSET(connection.udp_connect.socket, &rfds)) {
             udp_recv(connection, &package);
-                if(udp_package_checker(package, connection) != 0) {
-                connection.state = ALIVE;
+            debu_udp_package(package, debug, 9);
+            if(udp_package_checker(package, connection) != 0) {
+                debu("ALIVE_INFO: checked good\n", debug, 8);
                 if (package.type == ALIVE_ACK) {
-                    alive--;
+                    alive = 0;
+                    debu("ALIVE_INFO: recieved alive ack, state is now ALIVE\n",
+                        debug, 8);
+                    connection.state = ALIVE;
                 } else if (package.type == ALIVE_REJ) {
-                    break; /* Should make it better */
+                    debu("ALIVE_INFO: recived alive rej, will proceed to shutdown\n", debug, 1);
+                    boolean = 1; /* Should make it better */
                 }
             }
-        } else {
-            tv.tv_sec = R;
-            udp_send(connection, ALIVE_INF, data);
+        } else if (FD_ISSET(pipes[0][0], &rfds)) {
+            printf("Shutting down\n");
+            close(connection.udp_connect.socket);
+            close(pipes[0][0]);
+            close(pipes[1][1]);
+            wait(NULL);
+            exit(0);
         }
+        udp_send(connection, ALIVE_INF, data, debug);
+        alive++;
     }
-    if(cld_alive == 0) {
-        debu("Packages alive lost, state pass to disconnected\n", debug);
-    } else {
-        printf("Shutting down\n");
-        wait(NULL);
-        exit(0);
-    }
+    debu("Packages alive lost, state pass to disconnected\n", debug, 1);
+    connection.state = DISCONNECTED;
+    write(pipes[1][1], (void *) 'a', sizeof(char));
+    close(pipes[0][0]);
+    close(pipes[1][1]);
+    wait(NULL);
+
 }
 
-void sigusr1handler(int status) {
-    cld_alive = 1;
-}
 
 /* TODO: add signal handler so parent can send signal
  * if anything occurs. Signal should break the while 
  * so data doesn't break corrupted. With select may be
  * unnecessary. */
-void cli(connection connection, Arg arg) {
-    while(cld_alive == 0) {
+void cli(connection connection, Arg arg, int pipes[2][2]) {
+    fd_set rfds;
+    struct timeval tv;
+    FD_ZERO(&rfds);
+    FD_SET(pipes[1][0], &rfds);
+    tv.tv_usec = 1;
+    select(pipes[1][0] + 1, &rfds
+            , NULL, NULL, &tv);
+    while(!FD_ISSET(pipes[1][0], &rfds)) {
         switch(getcommand()) {
             case SEND:
+                debu("Send protocol initialitzated\n", arg.debug, 1);
                 send_prot(connection, arg);
+                debu("Send protocol initialitzated\n", arg.debug, 1);
                 break;
             case RECV:
+                debu("GET protocol initialitzated\n", arg.debug, 1);
                 get_prot(connection, arg);
+                debu("GET protocol initialitzated\n", arg.debug, 1);
                 break;
             case QUIT:
-                /* TODO: handle first father/son end  then quit. With
-                 * select may be unnecessary */
-                kill(getppid(), SIGUSR1);
+                debu("Quit protocol\n", arg.debug, 1);
+                write(pipes[0][1], (void *) 'a', sizeof(char));
+                close(pipes[0][1]);
+                close(pipes[1][0]);
                 exit(0);
                 break; /* Unreachable line, as quit exits*/
             default:
                 debu("Not a client build function, to get use of it"
                      "built-in commands ara: send-conf," 
-                     "recv-conf and quit\n", arg.debug);
+                     "get-conf and quit\n", arg.debug, 1);
+                break;
         }
+        FD_ZERO(&rfds);
+        FD_SET(pipes[1][0], &rfds);
+        tv.tv_usec = 1;
+        select(pipes[1][0] + 1, &rfds
+                , NULL, NULL, &tv);
     }
-    debu("CLI is shutting down\n", arg.debug);
+    debu("CLI is shutting down\n", arg.debug, 1);
+    close(pipes[0][1]);
+    close(pipes[1][0]);
     exit(0);
 }
 
@@ -449,13 +519,14 @@ void cli(connection connection, Arg arg) {
 int getcommand() {
     char buffer[256];
     char *word;
+    printf("> ");
     scanf("%s", buffer);
     word = strtok(buffer, " ");
     if(strcmp(word, "send-conf") == 0) {
         return SEND;
-    } else if(strcmp(word, "send-conf") == 0) {
+    } else if(strcmp(word, "get-conf") == 0) {
         return RECV;
-    } else if(strcmp(word, "send-conf") == 0) {
+    } else if(strcmp(word, "quit") == 0) {
         return QUIT;
     } else {
         return -1;
@@ -476,7 +547,7 @@ int tcp_connection(connection connection, int debug) {
     if(connect(tcp_socket, (struct sockaddr *) &server_address, 
                              sizeof(server_address)) == -1) {
         debu("An error has occurred during the tcp connection, "
-             "You must restart manually\n", debug);
+             "You must restart manually\n", debug, 1);
     }
     return tcp_socket;
 }
@@ -496,11 +567,11 @@ int tcp_send(connection connection, int sock, unsigned char type,
 }
 
 int tcp_package_checker(tcp_package package, connection connection) {
-    if(strcmp(package.name, connection.nom)){
+    if(strcmp(package.name, connection.server.nom) == 0){
         return NAME;
-    } else if(strcmp(package.mac, connection.mac)) {
+    } else if(strcmp(package.mac, connection.server.mac) == 0) {
         return MAC;
-    } else if(strcmp(package.random, connection.random)) {
+    } else if(strcmp(package.random, connection.random) == 0) {
         return RANDOM;
     } else {
         return CORRECT;
@@ -508,7 +579,7 @@ int tcp_package_checker(tcp_package package, connection connection) {
 }
 
 int tcp_recv(int socket, tcp_package *package) {
-    return recv(socket, (void *) &package, sizeof(package), 0);
+    return recv(socket, (void *) package, sizeof(*package), 0);
 }
 
 void send_prot(connection connection, Arg arg) {
@@ -523,11 +594,12 @@ void send_prot(connection connection, Arg arg) {
     tcp_send(connection, socket, SEND_FILE, data);
     tv.tv_sec = W;
     FD_ZERO(&rfds);
-    FD_SET(connection.udp_connect.socket, &rfds);
-    select(connection.udp_connect.socket, &rfds
+    FD_SET(socket, &rfds);
+    select(socket + 1, &rfds
             , NULL, NULL, &tv);
     if (FD_ISSET(socket, &rfds)) {
         tcp_recv(socket, &package);
+        debu_tcp_package(package, arg.debug, 5);
         if(tcp_package_checker(package, connection) == 0) {
             if(package.type != SEND_ACK) {
                 if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
@@ -558,26 +630,33 @@ void send_file(connection connection, int socket, Arg arg) {
     line = fgets(line, 150, file);
     while(line != NULL) {
         tcp_send(connection, socket, SEND_DATA, line);
-        debu("SEND_INFO: sending data to server...\n", arg.debug);
+        debu("SEND_INFO: sending data to server...\n", arg.debug, 5);
         line = fgets(line, 150, file);
     }
-    debu("SEND_INFO: sending end to server\n", arg.debug);
+    debu("SEND_INFO: sending end to server\n", arg.debug, 5);
     line[0]='\0'; /* so it sends a void string*/
     tcp_send(connection, socket, SEND_END, line);   
 }
 
 
 void get_prot(connection connection, Arg arg) {
-        int socket, n_bytes;
+    int socket;
     tcp_package package;
+    struct timeval tv;
+    fd_set rfds;
     char namecfg[7+4], data[150];
     strcpy(namecfg, connection.nom);
     data[0] = '\0';
     socket = tcp_connection(connection, arg.debug);
     tcp_send(connection, socket, GET_FILE, data);
-    alarm(W); /* TODO atm best solution seems, add sighandler*/
-    n_bytes = tcp_recv(socket, &package);
-    if (n_bytes != 0) {
+    tv.tv_sec = W;
+    FD_ZERO(&rfds);
+    FD_SET(socket, &rfds);
+    select(socket + 1, &rfds
+            , NULL, NULL, &tv);
+    if (FD_ISSET(socket, &rfds)) {
+        tcp_recv(socket, &package);
+        debu_tcp_package(package, arg.debug, 5);
         if(tcp_package_checker(package, connection) == 0) {
             if(package.type != GET_ACK) {
                 if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
@@ -610,10 +689,10 @@ void get_file(connection connection, int socket, Arg arg) {
     while(package.type != GET_END) {
         /* I don't know if the server sends or not sends \n*/
         fprintf(file, "%s\n", package.data); 
-        debu("GET_INFO: sending data to server...\n", arg.debug);
+        debu("GET_INFO: sending data to server...\n", arg.debug, 5);
         tcp_recv(socket, &package); 
     }
-    debu("GET_INFO: sending end to server\n", arg.debug);
+    debu("GET_INFO: sending end to server\n", arg.debug, 5);
     line[0]='\0'; /* so it sends a void string*/
     tcp_send(connection, socket, SEND_END, line);   
 }

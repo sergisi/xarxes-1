@@ -1,0 +1,1126 @@
+16:24:46: DEBUG =>  Llegits paràmetres línia de comandes
+16:24:46: INFO  =>  Llegits 5 equips autoritzats en el sistema
+16:24:46: DEBUG =>  Llegits paràmetres arxiu de configuració
+16:24:46: DEBUG =>  Socket UDP actiu
+16:24:46: DEBUG =>  Socket TCP actiu
+16:24:46: DEBUG =>  Creat fill per gestionar alives 
+16:24:46: INFO  =>  Establert temporitzador per control alives
+16:24:46: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+16:24:46: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+16:24:46: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+16:24:46: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=324768, dades=9102
+16:24:46: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=W, dades=
+16:24:46: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=W (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=324768)
+16:24:46: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+16:24:52: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut primer ALIVE en 6 segons)
+16:24:57: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+16:24:57: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+16:24:57: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+16:24:57: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=655080, dades=9102
+16:25:00: DEBUG =>  Petició de finalització
+16:25:00: DEBUG =>  Cancelat temporitzador per control alives
+17:15:02: DEBUG =>  Llegits paràmetres línia de comandes
+17:15:02: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:15:02: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:15:02: DEBUG =>  Socket UDP actiu
+17:15:02: DEBUG =>  Socket TCP actiu
+17:15:02: DEBUG =>  Creat fill per gestionar alives 
+17:15:02: INFO  =>  Establert temporitzador per control alives
+17:15:02: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:15:02: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:15:02: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:15:02: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=924322, dades=9102
+17:15:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=, dades=
+17:15:02: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:15:02: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea= (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=924322)
+17:15:02: INFO  =>  Rebutjat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 (Error dades equip registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=924322)
+17:15:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+17:15:02: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_NACK, nom=, mac=000000000000, alea=000000, dades=Error en dades de l'equip
+17:15:05: DEBUG =>  Petició de finalització
+17:15:05: DEBUG =>  Cancelat temporitzador per control alives
+17:20:31: DEBUG =>  Llegits paràmetres línia de comandes
+17:20:31: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:20:31: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:20:31: DEBUG =>  Socket UDP actiu
+17:20:31: DEBUG =>  Socket TCP actiu
+17:20:31: DEBUG =>  Creat fill per gestionar alives 
+17:20:31: INFO  =>  Establert temporitzador per control alives
+17:20:31: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:20:31: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:20:31: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:20:31: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=505028, dades=9102
+17:20:31: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=, dades=
+17:20:31: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea= (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=505028)
+17:20:31: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+17:20:34: DEBUG =>  Petició de finalització
+17:20:34: DEBUG =>  Cancelat temporitzador per control alives
+17:23:06: DEBUG =>  Llegits paràmetres línia de comandes
+17:23:06: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:23:06: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:23:06: DEBUG =>  Socket UDP actiu
+17:23:06: DEBUG =>  Socket TCP actiu
+17:23:06: DEBUG =>  Creat fill per gestionar alives 
+17:23:06: INFO  =>  Establert temporitzador per control alives
+17:23:06: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:23:06: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:23:06: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:23:06: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=863374, dades=9102
+17:23:06: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=, dades=
+17:23:06: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea= (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=863374)
+17:23:06: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+17:23:10: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=, dades=
+17:23:10: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea= (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=863374)
+17:23:10: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+17:23:12: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut primer ALIVE en 6 segons)
+17:23:13: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=, dades=
+17:23:13: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:23:13: INFO  =>  Rebutjat ALIVE (equip no registrat). Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=
+17:23:13: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:23:13: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:23:13: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_REJ, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (equip no registrat)
+17:23:13: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=828164, dades=9102
+17:23:18: DEBUG =>  Petició de finalització
+17:23:18: DEBUG =>  Cancelat temporitzador per control alives
+17:26:23: DEBUG =>  Llegits paràmetres línia de comandes
+17:26:23: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:26:23: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:26:23: DEBUG =>  Socket UDP actiu
+17:26:23: DEBUG =>  Socket TCP actiu
+17:26:23: DEBUG =>  Creat fill per gestionar alives 
+17:26:23: INFO  =>  Establert temporitzador per control alives
+17:26:23: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:26:23: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:26:23: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:26:23: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=443920, dades=9102
+17:26:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=, dades=
+17:26:23: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea= (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=443920)
+17:26:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+17:26:26: DEBUG =>  Petició de finalització
+17:26:26: DEBUG =>  Cancelat temporitzador per control alives
+17:34:33: DEBUG =>  Llegits paràmetres línia de comandes
+17:34:33: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:34:33: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:34:33: DEBUG =>  Socket UDP actiu
+17:34:33: DEBUG =>  Socket TCP actiu
+17:34:33: DEBUG =>  Creat fill per gestionar alives 
+17:34:33: INFO  =>  Establert temporitzador per control alives
+17:34:37: DEBUG =>  Petició de finalització
+17:34:37: DEBUG =>  Cancelat temporitzador per control alives
+17:36:42: DEBUG =>  Llegits paràmetres línia de comandes
+17:36:42: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:36:42: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:36:42: DEBUG =>  Socket UDP actiu
+17:36:42: DEBUG =>  Socket TCP actiu
+17:36:42: DEBUG =>  Creat fill per gestionar alives 
+17:36:42: INFO  =>  Establert temporitzador per control alives
+17:36:42: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:36:42: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:36:42: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:36:42: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=252963, dades=9102
+17:36:42: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=252963, dades=
+17:36:42: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=252963
+17:36:42: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+17:36:42: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=252963, dades=
+17:36:45: DEBUG =>  Petició de finalització
+17:36:45: DEBUG =>  Cancelat temporitzador per control alives
+17:55:16: DEBUG =>  Llegits paràmetres línia de comandes
+17:55:16: INFO  =>  Llegits 5 equips autoritzats en el sistema
+17:55:16: DEBUG =>  Llegits paràmetres arxiu de configuració
+17:55:16: DEBUG =>  Socket UDP actiu
+17:55:16: DEBUG =>  Socket TCP actiu
+17:55:16: DEBUG =>  Creat fill per gestionar alives 
+17:55:16: INFO  =>  Establert temporitzador per control alives
+17:55:21: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+17:55:21: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+17:55:21: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+17:55:21: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=527259, dades=9102
+17:55:21: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=527259, dades=
+17:55:21: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=527259
+17:55:21: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+17:55:21: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=527259, dades=
+17:55:30: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut 3 ALIVES consecutius)
+17:55:36: DEBUG =>  Rebuda connexió TCP, creat procés per atendre'l
+17:55:36: DEBUG =>  Rebut: bytes=178, comanda=GET_FILE, nom=SW-01, mac=89F107457A36, alea=527259  dades=
+17:55:36: INFO  =>  Denegat paquet TCP tipus: GET_FILE (Error dades equip)
+17:55:36: DEBUG =>  Enviat: bytes=178, comanda=GET_NACK, nom=, mac=000000000000, alea=000000  dades=Error en dades de l'equip
+17:55:36: DEBUG =>  Finalitzat el procés que atenia a un client TCP
+18:01:30: DEBUG =>  Petició de finalització
+18:01:30: DEBUG =>  Cancelat temporitzador per control alives
+18:01:38: DEBUG =>  Llegits paràmetres línia de comandes
+18:01:38: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:01:38: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:01:38: DEBUG =>  Socket UDP actiu
+18:01:38: DEBUG =>  Socket TCP actiu
+18:01:38: DEBUG =>  Creat fill per gestionar alives 
+18:01:38: INFO  =>  Establert temporitzador per control alives
+18:01:39: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:01:39: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:01:39: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:01:39: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=265759, dades=9102
+18:01:39: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=265759, dades=
+18:01:39: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=265759
+18:01:39: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:01:39: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=265759, dades=
+18:01:48: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut 3 ALIVES consecutius)
+18:01:55: DEBUG =>  Petició de finalització
+18:01:55: DEBUG =>  Cancelat temporitzador per control alives
+18:03:41: DEBUG =>  Llegits paràmetres línia de comandes
+18:03:41: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:03:41: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:03:41: DEBUG =>  Socket UDP actiu
+18:03:41: DEBUG =>  Socket TCP actiu
+18:03:41: DEBUG =>  Creat fill per gestionar alives 
+18:03:41: INFO  =>  Establert temporitzador per control alives
+18:03:41: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:03:41: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:03:41: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:03:41: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=290882, dades=9102
+18:03:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=290882, dades=
+18:03:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=290882
+18:03:41: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:03:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=290882, dades=
+18:03:50: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut 3 ALIVES consecutius)
+18:03:54: DEBUG =>  Petició de finalització
+18:03:54: DEBUG =>  Cancelat temporitzador per control alives
+18:07:40: DEBUG =>  Llegits paràmetres línia de comandes
+18:07:40: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:07:40: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:07:40: DEBUG =>  Socket UDP actiu
+18:07:40: DEBUG =>  Creat fill per gestionar alives 
+18:07:40: DEBUG =>  Socket TCP actiu
+18:07:40: INFO  =>  Establert temporitzador per control alives
+18:07:40: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:07:40: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:07:40: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:07:40: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=178555, dades=9102
+18:07:40: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=178555, dades=
+18:07:40: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=178555
+18:07:40: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:07:40: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=178555, dades=
+18:07:49: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut 3 ALIVES consecutius)
+18:08:05: DEBUG =>  Petició de finalització
+18:08:05: DEBUG =>  Cancelat temporitzador per control alives
+18:13:16: DEBUG =>  Llegits paràmetres línia de comandes
+18:13:16: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:13:16: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:13:16: DEBUG =>  Socket UDP actiu
+18:13:16: DEBUG =>  Socket TCP actiu
+18:13:16: DEBUG =>  Creat fill per gestionar alives 
+18:13:16: INFO  =>  Establert temporitzador per control alives
+18:13:17: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:13:17: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:13:17: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:13:17: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=9102
+18:13:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:17: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:13:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:13:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:13:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:13:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:14:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:14:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:14:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:15:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:15:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:15:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:16:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:16:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:16:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:17:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:17:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:17:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:18:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:18:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:18:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:19:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:19:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:19:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:20:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:20:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:20:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:21:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:21:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:21:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:22:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:22:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:22:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:23:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:23:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:23:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:47: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:47: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:47: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:50: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:50: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:50: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:53: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:53: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:53: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:56: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:56: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:56: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:24:59: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:24:59: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:24:59: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:02: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:02: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:02: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:05: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:05: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:05: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:08: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:08: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:08: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:11: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:11: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:11: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:14: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:14: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:14: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:17: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:20: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:23: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:23: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:23: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:26: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:26: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:26: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:29: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:29: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:29: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:32: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:32: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:32: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:35: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:35: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:35: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:38: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:38: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:38: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:41: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:41: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:41: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:44: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=735325, dades=
+18:25:44: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=735325
+18:25:44: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=735325, dades=
+18:25:47: DEBUG =>  Petició de finalització
+18:25:47: DEBUG =>  Cancelat temporitzador per control alives
+18:37:57: DEBUG =>  Llegits paràmetres línia de comandes
+18:37:57: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:37:57: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:37:57: DEBUG =>  Socket UDP actiu
+18:37:57: DEBUG =>  Socket TCP actiu
+18:37:57: DEBUG =>  Creat fill per gestionar alives 
+18:37:57: INFO  =>  Establert temporitzador per control alives
+18:38:03: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:38:03: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:38:03: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:38:03: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=9102
+18:38:03: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:03: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:03: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:38:03: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:06: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:06: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:06: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:09: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:09: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:09: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:12: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:12: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:12: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:15: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:15: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:15: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:18: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:18: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:18: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:21: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:21: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:21: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:24: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:24: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:24: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:27: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:27: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:27: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:30: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:30: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:30: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:33: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:33: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:33: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:36: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:36: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:36: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:39: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=582217, dades=
+18:38:39: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=582217
+18:38:39: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=582217, dades=
+18:38:44: DEBUG =>  Petició de finalització
+18:38:44: DEBUG =>  Cancelat temporitzador per control alives
+18:39:30: DEBUG =>  Llegits paràmetres línia de comandes
+18:39:30: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:39:30: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:39:30: DEBUG =>  Socket UDP actiu
+18:39:30: DEBUG =>  Socket TCP actiu
+18:39:30: DEBUG =>  Creat fill per gestionar alives 
+18:39:30: INFO  =>  Establert temporitzador per control alives
+18:40:18: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:40:18: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:40:18: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:40:18: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=9102
+18:40:18: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:18: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:18: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:40:18: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:21: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:21: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:21: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:24: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:24: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:24: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:27: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:27: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:27: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:30: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:30: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:30: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:32: DEBUG =>  Rebuda connexió TCP, creat procés per atendre'l
+18:40:32: DEBUG =>  Rebut: bytes=178, comanda=GET_FILE, nom=SW-01, mac=89F107457A36, alea=477870  dades=
+18:40:32: INFO  =>  Rebutjada petició obtenció arxiu de configuració (Servidor no pot obrir arxiu SW-01.cfg)
+18:40:32: DEBUG =>  Enviat: bytes=178, comanda=GET_REJ, nom=, mac=000000000000, alea=000000  dades=Servidor no pot obrir arxiu SW-01.cfg
+18:40:32: DEBUG =>  Finalitzat el procés que atenia a un client TCP
+18:40:33: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:33: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:33: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:36: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:36: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:36: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:39: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:39: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:39: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:42: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:42: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:42: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:45: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:45: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:45: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:48: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:48: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:48: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:51: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:51: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:51: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:54: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:54: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:54: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:40:57: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:40:57: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:40:57: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:41:00: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:41:00: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:41:00: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:41:03: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=477870, dades=
+18:41:03: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=477870
+18:41:03: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=477870, dades=
+18:41:07: DEBUG =>  Petició de finalització
+18:41:07: DEBUG =>  Cancelat temporitzador per control alives
+18:44:58: DEBUG =>  Llegits paràmetres línia de comandes
+18:44:58: INFO  =>  Llegits 5 equips autoritzats en el sistema
+18:44:58: DEBUG =>  Llegits paràmetres arxiu de configuració
+18:44:58: DEBUG =>  Socket UDP actiu
+18:44:58: DEBUG =>  Socket TCP actiu
+18:44:58: DEBUG =>  Creat fill per gestionar alives 
+18:44:58: INFO  =>  Establert temporitzador per control alives
+18:45:00: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+18:45:00: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+18:45:00: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+18:45:00: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=9102
+18:45:00: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:00: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:00: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+18:45:00: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:03: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:03: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:03: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:04: DEBUG =>  Rebuda connexió TCP, creat procés per atendre'l
+18:45:04: DEBUG =>  Rebut: bytes=178, comanda=GET_FILE, nom=SW-01, mac=89F107457A36, alea=148359  dades=
+18:45:04: INFO  =>  Rebutjada petició obtenció arxiu de configuració (Servidor no pot obrir arxiu SW-01.cfg)
+18:45:04: DEBUG =>  Enviat: bytes=178, comanda=GET_REJ, nom=, mac=000000000000, alea=000000  dades=Servidor no pot obrir arxiu SW-01.cfg
+18:45:04: DEBUG =>  Finalitzat el procés que atenia a un client TCP
+18:45:06: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:06: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:06: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:09: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:09: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:09: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:12: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:12: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:12: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:15: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:15: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:15: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:18: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=148359, dades=
+18:45:18: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=148359
+18:45:18: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
+18:45:20: DEBUG =>  Petició de finalització
+18:45:20: DEBUG =>  Cancelat temporitzador per control alives
