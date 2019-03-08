@@ -414,6 +414,7 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
     struct timeval tv;
     udp_package package;
     char data[50];
+    char child;
     memset((void *) data, '\0', sizeof(data));
     debu("ALIVE_INFO: started alive process\n", debug, 1);
     boolean = 0;
@@ -426,7 +427,7 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
         FD_SET(connection.udp_connect.socket, &rfds);
         FD_SET(pipes[0][0], &rfds);
         sleep(R);
-        tv.tv_usec = 1;
+        tv.tv_usec= 0;
         tv.tv_sec = 0;
         select(pipes[0][0] + 1, &rfds
                    , NULL, NULL, &tv);
@@ -445,12 +446,16 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
                     boolean = 1; /* Should make it better */
                 }
             }
-        } else if (FD_ISSET(pipes[0][0], &rfds)) {
-            printf("Shutting down\n");
+        } 
+        if (FD_ISSET(pipes[0][0], &rfds)) { /* May be both are set */
+            printf("PIPE_PRNT: Shutting down\n");
             close(connection.udp_connect.socket);
             close(pipes[0][0]);
             close(pipes[1][1]);
-            wait(NULL);
+            if(wait(NULL) == -1) {
+                perror("Wait failed");
+                exit(-1);
+            }
             exit(0);
         }
         udp_send(connection, ALIVE_INF, data, debug);
@@ -458,27 +463,35 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
     }
     debu("Packages alive lost, state pass to disconnected\n", debug, 1);
     connection.state = DISCONNECTED;
-    write(pipes[1][1], (void *) 'a', sizeof(char));
+    debu("PIPE_PRNT: send msg to child to disconnect\n", debug, 3);
+    child = 'a';
+    if(write(pipes[1][1], (void *) &child, sizeof(char)) == -1) {
+        perror("PRNT: Error writting");
+        exit(-2);
+    }
     close(pipes[0][0]);
     close(pipes[1][1]);
-    wait(NULL);
-
+    if (wait(NULL) == -1 ) {
+        perror("Wait failed");
+        exit(-1);
+    }
+    debu("PIPE_PRNT: child disconnected\n", debug, 3);
 }
 
 
-/* TODO: add signal handler so parent can send signal
- * if anything occurs. Signal should break the while 
- * so data doesn't break corrupted. With select may be
- * unnecessary. */
+/* TODO: correct pipe and > msg (fill buffer) */
 void cli(connection connection, Arg arg, int pipes[2][2]) {
     fd_set rfds;
-    struct timeval tv;
+    char parent;
     FD_ZERO(&rfds);
     FD_SET(pipes[1][0], &rfds);
-    tv.tv_usec = 1;
+    FD_SET(STDIN_FILENO, &rfds);
+    printf("> ");
+    fflush(stdout);
     select(pipes[1][0] + 1, &rfds
-            , NULL, NULL, &tv);
+            , NULL, NULL, NULL);
     while(!FD_ISSET(pipes[1][0], &rfds)) {
+        printf("\n"); 
         switch(getcommand()) {
             case SEND:
                 debu("Send protocol initialitzated\n", arg.debug, 1);
@@ -492,9 +505,15 @@ void cli(connection connection, Arg arg, int pipes[2][2]) {
                 break;
             case QUIT:
                 debu("Quit protocol\n", arg.debug, 1);
-                write(pipes[0][1], (void *) 'a', sizeof(char));
+                debu("PIPE_CHLD: send msg to parent to disconnect\n", arg.debug, 3);
+                parent = 'a';
+                if(write(pipes[0][1], (void *) &parent, sizeof(char)) == -1) {
+                    perror("CHLD: Error writting");
+                    exit(-2);
+                }
                 close(pipes[0][1]);
                 close(pipes[1][0]);
+                debu("CHLD: Disconnected\n", arg.debug, 3);
                 exit(0);
                 break; /* Unreachable line, as quit exits*/
             default:
@@ -505,11 +524,13 @@ void cli(connection connection, Arg arg, int pipes[2][2]) {
         }
         FD_ZERO(&rfds);
         FD_SET(pipes[1][0], &rfds);
-        tv.tv_usec = 1;
+        FD_SET(STDIN_FILENO, &rfds);
+        printf("> ");
+        fflush(stdout);
         select(pipes[1][0] + 1, &rfds
-                , NULL, NULL, &tv);
+                , NULL, NULL, NULL);
     }
-    debu("CLI is shutting down\n", arg.debug, 1);
+    debu("\nPIPE_CHLD: CLI is shutting down\n", arg.debug, 1);
     close(pipes[0][1]);
     close(pipes[1][0]);
     exit(0);
@@ -519,7 +540,6 @@ void cli(connection connection, Arg arg, int pipes[2][2]) {
 int getcommand() {
     char buffer[256];
     char *word;
-    printf("> ");
     scanf("%s", buffer);
     word = strtok(buffer, " ");
     if(strcmp(word, "send-conf") == 0) {
@@ -591,6 +611,7 @@ void send_prot(connection connection, Arg arg) {
     strcpy(namecfg, connection.nom);
     data[0] = '\0';
     socket = tcp_connection(connection, arg.debug);
+    debu("SEND_PROT: Send SEND_FILE package\n", arg.debug, 4);
     tcp_send(connection, socket, SEND_FILE, data);
     tv.tv_sec = W;
     FD_ZERO(&rfds);
@@ -618,6 +639,7 @@ void send_prot(connection connection, Arg arg) {
         printf("ERROR_SEND: A trouble has occured during connexion with server."
                "to try another time, please put the command\n");
     }
+    debu("SEND_PROT: closing tcp connection\n", arg.debug, 3);
     close(socket);
 }
 
@@ -633,7 +655,7 @@ void send_file(connection connection, int socket, Arg arg) {
         debu("SEND_INFO: sending data to server...\n", arg.debug, 5);
         line = fgets(line, 150, file);
     }
-    debu("SEND_INFO: sending end to server\n", arg.debug, 5);
+    debu("SEND_INFO: sending end to server\n", arg.debug, 3);
     line[0]='\0'; /* so it sends a void string*/
     tcp_send(connection, socket, SEND_END, line);   
 }
@@ -648,12 +670,15 @@ void get_prot(connection connection, Arg arg) {
     strcpy(namecfg, connection.nom);
     data[0] = '\0';
     socket = tcp_connection(connection, arg.debug);
+    debu("GET_PROT: send GET_FILE package\n", arg.debug, 3);
     tcp_send(connection, socket, GET_FILE, data);
     tv.tv_sec = W;
+    tv.tv_usec = 0;
     FD_ZERO(&rfds);
     FD_SET(socket, &rfds);
     select(socket + 1, &rfds
             , NULL, NULL, &tv);
+    debu("GET_PROT: recived package or timedout\n", arg.debug, 3); /*Unreachable line */
     if (FD_ISSET(socket, &rfds)) {
         tcp_recv(socket, &package);
         debu_tcp_package(package, arg.debug, 5);
@@ -665,7 +690,7 @@ void get_prot(connection connection, Arg arg) {
                     printf("ERROR_SEND: Name camp was not according to this node\n");
                 }
             } else {
-                printf("ERROR_SEND: Package type was not GET_ACK: %x",
+                printf("ERROR_SEND: Package type was not GET_ACK: %x\n",
                          package.type);
             }
         } else {
@@ -676,6 +701,7 @@ void get_prot(connection connection, Arg arg) {
         printf("ERROR_SEND: A trouble has occured during connexion with server."
                "to try another time, please put the command\n");
     }
+    debu("GET_PROT: closing tcp connection\n", arg.debug, 3);
     close(socket);
 }
 
@@ -689,7 +715,7 @@ void get_file(connection connection, int socket, Arg arg) {
     while(package.type != GET_END) {
         /* I don't know if the server sends or not sends \n*/
         fprintf(file, "%s\n", package.data); 
-        debu("GET_INFO: sending data to server...\n", arg.debug, 5);
+        debu("GET_INFO: getting data from server...\n", arg.debug, 5);
         tcp_recv(socket, &package); 
     }
     debu("GET_INFO: sending end to server\n", arg.debug, 5);
