@@ -2,8 +2,7 @@
 Xarxes pràctica 1
 
 TODO:
-    get-conf and send-conf doesn't fill data correcly, making a weird behaviour
-    in server 
+    solve bug #1 that rewrites the last line when get-conf (and maybe send-conf?).
 
 
 ----
@@ -14,3 +13,8 @@ Sóc el Sergi Simón (GM3) i t'escric perquè he detectat un error en l'enunciat
 L'error és que en la part del client, tant en el diagrama de temps com en la taula de paquets dels protocols "get-conf" i "send-conf" surt com a paquet de començament del protocol el tipus GET_FILE i SEND_FILE (0x30 i 0x20 respectivament), mentre que en el servidor, en els seus diagrames de temps son SEND_CONF i GET_CONF.
 
 En la part del debug (-d 9), tot i que mostra com ha acceptat les peticions no mostra que hagi enviat el paquest de GET_ACK (no ho he provat amb el SEND encara). A més a més, el meu client no detecta que hagi rebut un paquet. 
+
+---
+Coses a preguntar al professor:
+    que significa tenir tres paquets sense contestar (espero a rebre la resposta    amb el que fa 3 o no?)
+    Si m'envia un REGISTER_NACK he d'esperar la resta de segons per a tornar a      enviar el paquet?

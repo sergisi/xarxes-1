@@ -339,29 +339,33 @@ void register_fase(connection *connection, int debug) {
             if(FD_ISSET((*connection).udp_connect.socket, &rfds)){
                 udp_recv((*connection), &package);
                 debu("REGISTER_INFO: recv package\n", debug, 5);
-                boolean = 1;
+                if (package.type == REGISTER_REJ) {
+                    printf("Register fase rejected from server"
+                        ", code error: %s\n", package.data);
+                    close((*connection).udp_connect.socket);
+                    exit(-1);
+                } else if(package.type == REGISTER_ACK) {
+                    debu("REGISTER_INFO: registered successfully\n", debug, 1);
+                    (*connection).state = REGISTERED;
+                    strcpy((*connection).random, package.random);
+                    strcpy((*connection).server.nom, package.name);
+                    strcpy((*connection).server.mac, package.mac);
+                    sscanf(package.data, "%ld", &(*connection).tcp_port);
+                    boolean = 1;
+                } else { 
+                    debu("REGISTER_INFO: not an ACK package\n", debug, 2);
+                    /* Either if its ignored enough times or it 
+                    * is NACK will go down here*/
+                    select(0, NULL, NULL, NULL, &tv); /* So it waits the rest */
+                    p++;
+                }
                 debu_udp_package(package, debug, 5);
             } else {
                 p++;
             }
         }
-        if (package.type == REGISTER_REJ) {
-            printf("Register fase rejected from server"
-                   ", code error: %s\n", package.data);
-            close((*connection).udp_connect.socket);
-            exit(-1);
-        } else if(package.type == REGISTER_ACK) {
-            debu("REGISTER_INFO: registered successfully\n", debug, 1);
-            (*connection).state = REGISTERED;
-            strcpy((*connection).random, package.random);
-            strcpy((*connection).server.nom, package.name);
-            strcpy((*connection).server.mac, package.mac);
-            sscanf(package.data, "%ld", &(*connection).tcp_port);
-        } else { 
-            debu("REGISTER_INFO: not an ACK package\n", debug, 2);
-            /* Either if its ignored enough times or it 
-             * is NACK will go down here*/
-            q++;
+        if(boolean == 0) {
+            sleep(S);
         }
     }
     if((*connection).state != REGISTERED) {
@@ -396,11 +400,11 @@ int time(int i) {
  * Type package test is left to the protocol management,
  * as it would make this function unnecessary large*/
 int udp_package_checker(udp_package package, connection connection) {
-    if(strcmp(package.name, connection.server.nom) == 0){
+    if(strcmp(package.name, connection.server.nom) != 0){
         return NAME;
-    } else if(strcmp(package.mac, connection.server.mac) == 0) {
+    } else if(strcmp(package.mac, connection.server.mac) != 0) {
         return MAC;
-    } else if(strcmp(package.random, connection.random) == 0) {
+    } else if(strcmp(package.random, connection.random) != 0) {
         return RANDOM;
     } else {
         return CORRECT;
@@ -422,8 +426,10 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
     tv.tv_sec = R;
     debu("Sending first alive\n", debug, 9);
     udp_send(connection, ALIVE_INF, data, debug);
-    alive = 1;
-    while(alive < U && boolean == 0) { /* Change number*/
+    alive = 1; 
+    /* TODO: ask professor what means 3 packages with no response 
+     * added equal as it seems it wants this with -t 2 */
+    while(alive <= U && boolean == 0) { /* Change number*/
         FD_ZERO(&rfds);
         FD_SET(connection.udp_connect.socket, &rfds);
         FD_SET(pipes[0][0], &rfds);
@@ -435,7 +441,7 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
         if (FD_ISSET(connection.udp_connect.socket, &rfds)) {
             udp_recv(connection, &package);
             debu_udp_package(package, debug, 9);
-            if(udp_package_checker(package, connection) != 0) {
+            if(udp_package_checker(package, connection) == CORRECT) {
                 debu("ALIVE_INFO: checked good\n", debug, 8);
                 if (package.type == ALIVE_ACK) {
                     alive = 0;
@@ -446,10 +452,12 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
                     debu("ALIVE_INFO: recived alive rej, will proceed to shutdown\n", debug, 1);
                     boolean = 1; /* Should make it better */
                 }
+            } else {
+                debu("ALIVE_INFO: data wasn't correctly send\n", debug, 8);
             }
         } 
         if (FD_ISSET(pipes[0][0], &rfds)) { /* May be both are set */
-            printf("PIPE_PRNT: Shutting down\n");
+            debu("PIPE_PRNT: Shutting down\n", debug, 5);
             close(connection.udp_connect.socket);
             close(pipes[0][0]);
             close(pipes[1][1]);
@@ -497,12 +505,12 @@ void cli(connection connection, Arg arg, int pipes[2][2]) {
             case SEND:
                 debu("Send protocol initialitzated\n", arg.debug, 1);
                 send_prot(connection, arg);
-                debu("Send protocol initialitzated\n", arg.debug, 1);
+                debu("Send protocol finished\n", arg.debug, 1);
                 break;
             case RECV:
                 debu("GET protocol initialitzated\n", arg.debug, 1);
                 get_prot(connection, arg);
-                debu("GET protocol initialitzated\n", arg.debug, 1);
+                debu("GET protocol finished\n", arg.debug, 1);
                 break;
             case QUIT:
                 debu("Quit protocol\n", arg.debug, 1);
@@ -588,11 +596,11 @@ int tcp_send(connection connection, int sock, unsigned char type,
 }
 
 int tcp_package_checker(tcp_package package, connection connection) {
-    if(strcmp(package.name, connection.server.nom) == 0){
+    if(strcmp(package.name, connection.server.nom) != 0){
         return NAME;
-    } else if(strcmp(package.mac, connection.server.mac) == 0) {
+    } else if(strcmp(package.mac, connection.server.mac) != 0) {
         return MAC;
-    } else if(strcmp(package.random, connection.random) == 0) {
+    } else if(strcmp(package.random, connection.random) != 0) {
         return RANDOM;
     } else {
         return CORRECT;
@@ -610,6 +618,7 @@ void send_prot(connection connection, Arg arg) {
     fd_set rfds;
     char namecfg[7+4], data[150];
     char *size;
+
     strcpy(namecfg, connection.nom);
     strcpy(data, arg.file);
     strcat(data, ",");
@@ -627,15 +636,15 @@ void send_prot(connection connection, Arg arg) {
     if (FD_ISSET(socket, &rfds)) {
         tcp_recv(socket, &package);
         debu_tcp_package(package, arg.debug, 5);
-        if(tcp_package_checker(package, connection) == 0) {
-            if(package.type != SEND_ACK) {
-                if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
+        if(tcp_package_checker(package, connection) == CORRECT) {
+            if(package.type == SEND_ACK) {
+                if(strcmp(package.data, strcat(namecfg, ".cfg")) == 0) {
                     send_file(connection, socket, arg);
                 } else {
                     printf("ERROR_SEND: Name camp was not according to this node\n");
                 }
             } else {
-                printf("ERROR_SEND: Package type was not GET_ACK: %x", package.type);
+                printf("ERROR_SEND: Package type was not SEND_ACK: %x", package.type);
             }
         } else {
             printf("ERROR_SEND: Camps were not send accordingly\n");
@@ -655,14 +664,13 @@ void send_file(connection connection, int socket, Arg arg) {
     char *line;
     file = fopen(arg.file, "r");
     line = (char *) malloc(150*sizeof(char));
-    line = fgets(line, 150, file);
-    while(line != NULL) {
+    while(fgets(line, 150, file) != NULL) {
         tcp_send(connection, socket, SEND_DATA, line);
         debu("SEND_INFO: sending data to server...\n", arg.debug, 5);
-        line = fgets(line, 150, file);
     }
     debu("SEND_INFO: sending end to server\n", arg.debug, 3);
     line[0]='\0'; /* so it sends a void string*/
+    fclose(file);
     tcp_send(connection, socket, SEND_END, line);   
 }
 
@@ -694,9 +702,9 @@ void get_prot(connection connection, Arg arg) {
     if (FD_ISSET(socket, &rfds)) {
         tcp_recv(socket, &package);
         debu_tcp_package(package, arg.debug, 5);
-        if(tcp_package_checker(package, connection) == 0) {
-            if(package.type != GET_ACK) {
-                if(strcmp(package.data, strcat(namecfg, ".cfg"))) {
+        if(tcp_package_checker(package, connection) == CORRECT) {
+            if(package.type == GET_ACK) {
+                if(strcmp(package.data, strcat(namecfg, ".cfg")) == 0) {
                     get_file(connection, socket, arg);
                 } else {
                     printf("ERROR_SEND: Name camp was not according to this node\n");
@@ -708,7 +716,6 @@ void get_prot(connection connection, Arg arg) {
         } else {
             printf("ERROR_SEND: Camps were not send accordingly\n");
         }
-
     } else {
         printf("ERROR_SEND: A trouble has occured during connexion with server."
                "to try another time, please put the command\n");
@@ -720,19 +727,37 @@ void get_prot(connection connection, Arg arg) {
 
 void get_file(connection connection, int socket, Arg arg) {
     FILE *file;
-    char line[150];
     tcp_package package;
+    struct timeval tv;
+    fd_set rfds;
+    short boolean = 0;
+    tv.tv_sec = W;
+    tv.tv_usec = 0;
+    FD_ZERO(&rfds);
+    FD_SET(socket, &rfds);
+    select(socket + 1, &rfds
+            , NULL, NULL, &tv);
     file = fopen(arg.file,  "w");
     tcp_recv(socket, &package); 
-    while(package.type != GET_END) {
+    while(package.type != GET_END && boolean == 0) {
         /* I don't know if the server sends or not sends \n*/
-        fprintf(file, "%s\n", package.data); 
+        fprintf(file, "%s", package.data); 
         debu("GET_INFO: getting data from server...\n", arg.debug, 5);
-        tcp_recv(socket, &package); 
+            tv.tv_sec = W;
+        tv.tv_usec = 0;
+        FD_ZERO(&rfds);
+        FD_SET(socket, &rfds);
+        select(socket + 1, &rfds
+                , NULL, NULL, &tv);
+        if(FD_ISSET(socket, &rfds)) {
+            tcp_recv(socket, &package);
+        } else {
+            boolean = 1;
+            debu("GET_INFO: timeout\n", arg.debug, 5);
+        }
     }
-    debu("GET_INFO: sending end to server\n", arg.debug, 5);
-    line[0]='\0'; /* so it sends a void string*/
-    tcp_send(connection, socket, SEND_END, line);   
+    debu("GET_INFO: ended got protocol\n", arg.debug, 5);
+    fclose(file);
 }
 
 char* getsize(char *path) {
