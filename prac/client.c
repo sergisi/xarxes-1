@@ -112,6 +112,7 @@ void get_file(connection connection, int socket, Arg arg);
 int getcommand();
 void debu_tcp_package(tcp_package package, int debug, int level);
 void debu_udp_package(udp_package package, int debug, int level);
+char* getsize(char *path);
 
 /* TODO: change alarm to select when possible, study how the timeout
  * works in that function */
@@ -608,8 +609,13 @@ void send_prot(connection connection, Arg arg) {
     struct timeval tv;
     fd_set rfds;
     char namecfg[7+4], data[150];
+    char *size;
     strcpy(namecfg, connection.nom);
-    data[0] = '\0';
+    strcpy(data, arg.file);
+    strcat(data, ",");
+    size = getsize(arg.file);
+    strcat(data, size);
+    free(size);
     socket = tcp_connection(connection, arg.debug);
     debu("SEND_PROT: Send SEND_FILE package\n", arg.debug, 4);
     tcp_send(connection, socket, SEND_FILE, data);
@@ -667,11 +673,17 @@ void get_prot(connection connection, Arg arg) {
     struct timeval tv;
     fd_set rfds;
     char namecfg[7+4], data[150];
+    char *size;
     strcpy(namecfg, connection.nom);
-    data[0] = '\0';
+    strcpy(data, arg.file);
+    strcat(data, ",");
+    size = getsize(arg.file);
+    strcat(data, size);
+    free(size);
     socket = tcp_connection(connection, arg.debug);
     debu("GET_PROT: send GET_FILE package\n", arg.debug, 3);
     tcp_send(connection, socket, GET_FILE, data);
+    
     tv.tv_sec = W;
     tv.tv_usec = 0;
     FD_ZERO(&rfds);
@@ -721,5 +733,17 @@ void get_file(connection connection, int socket, Arg arg) {
     debu("GET_INFO: sending end to server\n", arg.debug, 5);
     line[0]='\0'; /* so it sends a void string*/
     tcp_send(connection, socket, SEND_END, line);   
+}
+
+char* getsize(char *path) {
+    struct stat statbuf;
+    char *string;
+    string = malloc(sizeof(char)*7);
+    if(stat(path, &statbuf) != 0) {
+        perror("Error in stat file");
+        /* exit(-3) * I don't know if i shouldn't comment this */
+    }
+    sprintf(string, "%li", statbuf.st_size);
+    return string;
 }
 
