@@ -431,12 +431,27 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
      * added equal as it seems it wants this with -t 2 */
     while(alive <= U && boolean == 0) { /* Change number*/
         FD_ZERO(&rfds);
-        FD_SET(connection.udp_connect.socket, &rfds);
         FD_SET(pipes[0][0], &rfds);
-        sleep(R);
+        tv.tv_usec= 0;
+        tv.tv_sec = R;
+        select(pipes[0][0] + 1, &rfds
+                   , NULL, NULL, &tv);
+        if (FD_ISSET(pipes[0][0], &rfds)) { /* May be both are set */
+            debu("PIPE_PRNT: Shutting down\n", debug, 5);
+            close(connection.udp_connect.socket);
+            close(pipes[0][0]);
+            close(pipes[1][1]);
+            if(wait(NULL) == -1) {
+                perror("Wait failed");
+                exit(-1);
+            }
+            exit(0);
+        }
         tv.tv_usec= 0;
         tv.tv_sec = 0;
-        select(pipes[0][0] + 1, &rfds
+        FD_ZERO(&rfds);
+        FD_SET(connection.udp_connect.socket, &rfds);
+        select(connection.udp_connect.socket + 1, &rfds
                    , NULL, NULL, &tv);
         if (FD_ISSET(connection.udp_connect.socket, &rfds)) {
             udp_recv(connection, &package);
@@ -455,17 +470,6 @@ void alive_fase(connection connection, int debug, int pipes[2][2]) {
             } else {
                 debu("ALIVE_INFO: data wasn't correctly send\n", debug, 8);
             }
-        } 
-        if (FD_ISSET(pipes[0][0], &rfds)) { /* May be both are set */
-            debu("PIPE_PRNT: Shutting down\n", debug, 5);
-            close(connection.udp_connect.socket);
-            close(pipes[0][0]);
-            close(pipes[1][1]);
-            if(wait(NULL) == -1) {
-                perror("Wait failed");
-                exit(-1);
-            }
-            exit(0);
         }
         udp_send(connection, ALIVE_INF, data, debug);
         alive++;
@@ -526,9 +530,9 @@ void cli(connection connection, Arg arg, int pipes[2][2]) {
                 exit(0);
                 break; /* Unreachable line, as quit exits*/
             default:
-                debu("Not a client build function, to get use of it"
-                     "built-in commands ara: send-conf," 
-                     "get-conf and quit\n", arg.debug, 1);
+                printf("Not a client build function. "
+                     "Built-in commands are: send-conf," 
+                     "get-conf and quit\n");
                 break;
         }
         FD_ZERO(&rfds);
