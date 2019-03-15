@@ -3,7 +3,7 @@ import socket
 import argparse
 from ctypes import Structure, c_ubyte, c_char
 import random
-
+from time import sleep
 
 REGISTER_REQ = 0x00
 REGISTER_ACK = 0x01
@@ -30,12 +30,7 @@ GET_REJ = 0x33
 GET_DATA = 0x34
 GET_END = 0x35
 
-# Constants d'estats
-DISCONNECTED = 0
-WAIT_REG = 1
-REGISTERED = 2
-ALIVE = 3
-
+# Constants temps
 J = 2
 K = 3
 GRANUL = 2  # mig segon
@@ -49,7 +44,7 @@ class UdpPackage(Structure):
                 ('data', c_char*50)]
 
 
-class Connexion:
+class Connexion():
     """This class will contain methods to make
        connexion releted problems easier."""
 
@@ -62,27 +57,32 @@ class Connexion:
             elif word == 'MAC':
                 self.mac = line.partition(' ')[1]
             elif word == 'UDP-port':
-                self.udp_socket = self.__init_udp_socket(
+                self.udp_socket = __init_udp_socket(
                     line.partition(' ')[1])
             elif word == 'TCP-port':
                 self.tcp_port = line.partition(' ')[1]
-                self.tcp_socket = self.__init_tcp_socket(self.tcp_port)
+                self.tcp_socket = __init_tcp_socket(self.tcp_port)
 
-    def __init_udp_socket(self, port):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.bind(('', port))
-        return s
 
-    def __init_tcp_socket(self, port):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(('', port))
-        s.listen(5)
-        return s
+    def udp_package(self, client, tipus, data):
+        return UdpPackage(tipus, self.name,
+                          self.mac, client.random, data)
 
     def close(self):
         self.tcp_socket.close()
         self.udp_socket.close()
 
+
+def __init_udp_socket(port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind(('', port))
+    return sock
+
+def __init_tcp_socket(port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(('', port))
+    sock.listen(5)
+    return sock
 
 class Client:
     """ Class for containing all client
@@ -91,12 +91,24 @@ class Client:
         self.name = name
         self.mac = mac
         self.random = None
-        self.state = DISCONNECTED
+        self.state = 'DISCONNECTED'
         self.ip = None
+        self.alives = 0
 
     def set_random(self):
         self.random = str(random.randint(0, 999999))
         self.alives = J * GRANUL
+
+    def decrease_alive(self):
+        if self.state == 'REGISTERED' or self.state == 'ALIVE':
+            self.alives -= 1
+            if self.alives == 0:
+                debug("Client " + self.name + "is now DISCONNECTED"
+                        " due to lack of alives", debug)
+                self.state = 'DISCONNECTED'
+    
+    def reset_alive(self):
+        self.alives = K * GRANUL
 
 
 def debug(line, debug):
@@ -125,17 +137,12 @@ def set_clients(equips):
     return dicc
 
 
-def udp_package(connexion, client, tipus, data):
-    return UdpPackage(tipus, connexion.name,
-                      connexion.mac, client.random, data)
-
-
 def register(connexion, clients, package, addr, debug):
     if reg(package) == 0:  # It will be deleated with proper elif statements
         actual = clients[package.name]
         actual.set_random()
         actual.ip = addr
-        response = udp_package(connexion, clients[package.name],
+        response = connexion.udp_package(clients[package.name],
                                REGISTER_ACK, str(connexion.tcp_port))
         connexion.udp_socket.sendto(response, addr)
 
@@ -147,16 +154,13 @@ def reg(package):
 def alive(connexion, clients, package, addr, debug):
     pass
 
+
 # TODO: finish this
 def alive_update(clients):
-    # wait 1/GRANUL seconds
-    for client in clients:
-        if (client.state == REGISTERED or
-                client.state == ALIVE):
-            client.alive -= 1
-            if (client.alive == 0):
-                debug("Client " + client.name + "is now DISCONNECTED"
-                      " due to lack of alives", debug)
+    while True:  # Change so it breaks when quit prot
+        sleep(1/GRANUL)
+        for client in clients.itervalues():
+            client.decrease_alive()
 
 
 def udp_server(connexion, clients, debug):
@@ -168,6 +172,15 @@ def udp_server(connexion, clients, debug):
                 register(connexion, clients, package, addr, debug)
             else:
                 alive(connexion, clients, package, addr, debug)
+
+
+# TODO: revise list protocol
+def list_prot(clients):
+    print '-Nom--\t------IP------\t----MAC----\t-ALEA-\t----ESTAT---'
+    for client in clients:
+        print '%s\t%s\t%s\t%s\t%s', (client.name, str(client.ip[0]),
+                                     client.mac, client.random,
+                                     client.state)
 
 
 if __name__ == '__main__':
