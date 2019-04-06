@@ -84,6 +84,12 @@ def __init_tcp_socket(port):
     sock.listen(5)
     return sock
 
+
+def register_failed(tipus, data):
+    return UdpPackage(tipus, '000000', '000000000000',
+                      '000000', data)
+
+
 class Client:
     """ Class for containing all client
         related data """
@@ -96,7 +102,7 @@ class Client:
         self.alives = 0
 
     def set_random(self):
-        self.random = str(random.randint(0, 999999))
+        self.random = str(random.randint(0, 1000000))
         self.alives = J * GRANUL
 
     def decrease_alive(self):
@@ -106,6 +112,7 @@ class Client:
                 debug("Client " + self.name + "is now DISCONNECTED"
                         " due to lack of alives", debug)
                 self.state = 'DISCONNECTED'
+                self.random = None
     
     def reset_alive(self):
         self.alives = K * GRANUL
@@ -138,17 +145,41 @@ def set_clients(equips):
 
 
 def register(connexion, clients, package, addr, debug):
-    if reg(package) == 0:  # It will be deleated with proper elif statements
-        actual = clients[package.name]
-        actual.set_random()
-        actual.ip = addr
-        response = connexion.udp_package(clients[package.name],
-                               REGISTER_ACK, str(connexion.tcp_port))
-        connexion.udp_socket.sendto(response, addr)
+    if package.name in clients:
+        client = clients[package.name]
+        if client.mac != package.mac:
+            connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                                                      'Failed Registered request: MAC address '
+                                                      'is not correct'), addr)
+        elif client.state == 'DISCONNECTED':
+            if package.random != '000000':
+                connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                                                          'Failed Registered request: Random is not'
+                                                          '000000'), addr)
+            else:
+                client.set_random()
+                client.ip = addr[0]
+                response = connexion.udp_package(clients[package.name],
+                                        REGISTER_ACK, connexion.tcp_port)
+                connexion.udp_socket.sendto(response, addr)
+        else: 
+            if client.random != package.random:
+                connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                                                          'Failed Registered request: Random is not'
+                                                          'correct'), addr)
+            elif client.ip != addr[0]:
+                connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                                                          'Failed Registered request: IP is not'
+                                                          'correct'), addr)
 
-
-def reg(package):
-    return 0
+            else:
+                response = connexion.udp_package(clients[package.name],
+                                        REGISTER_ACK, connexion.tcp_port)
+                connexion.udp_socket.sendto(response, addr)          
+    else:
+        connexion.udp_socket.sendto(register_failed(REGISTER_REJ, 
+                                                  'Failed Registered request: client '
+                                                  'is not authorised'), addr)
 
 
 def alive(connexion, clients, package, addr, debug):
@@ -167,18 +198,17 @@ def udp_server(connexion, clients, debug):
     btties, addr = connexion.udp_socket.recvfrom(78)
     if btties:
         package = UdpPackage.from_buffer_copy(btties)
-        if package.name in clients:
-            if package.tipus < 0x10:
-                register(connexion, clients, package, addr, debug)
-            else:
-                alive(connexion, clients, package, addr, debug)
+        if package.tipus == REGISTER_ACK:
+            register(connexion, clients, package, addr, debug)
+        else:  # TODO: add elif and error for not alive pack and REG_ACK
+            alive(connexion, clients, package, addr, debug)
 
 
 # TODO: revise list protocol
 def list_prot(clients):
     print '-Nom--\t------IP------\t----MAC----\t-ALEA-\t----ESTAT---'
     for client in clients:
-        print '%s\t%s\t%s\t%s\t%s', (client.name, str(client.ip[0]),
+        print '%s\t%s\t%s\t%s\t%s', (client.name, client.ip,
                                      client.mac, client.random,
                                      client.state)
 
@@ -187,3 +217,4 @@ if __name__ == '__main__':
     args = argv()
     connexion = Connexion(args.config)
     clients = set_clients(args.authorised)
+
