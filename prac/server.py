@@ -149,13 +149,17 @@ def register(connexion, clients, package, addr, debug):
         client = clients[package.name]
         if client.mac != package.mac:
             connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
-                                                      'Failed Registered request: MAC address '
-                                                      'is not correct'), addr)
+                                                        'Failed Registered '
+                                                        'request: MAC address'
+                                                        'is not correct'),
+                                                         addr)
         elif client.state == 'DISCONNECTED':
             if package.random != '000000':
                 connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
-                                                          'Failed Registered request: Random is not'
-                                                          '000000'), addr)
+                                                          'Failed Registered '
+                                                          'request: Random is'
+                                                          ' not 000000'),
+                                                          addr)
             else:
                 client.set_random()
                 client.ip = addr[0]
@@ -165,12 +169,15 @@ def register(connexion, clients, package, addr, debug):
         else: 
             if client.random != package.random:
                 connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
-                                                          'Failed Registered request: Random is not'
-                                                          'correct'), addr)
+                                                          'Failed Registered '
+                                                          'request: Random is'
+                                                          ' not correct'),
+                                                          addr)
             elif client.ip != addr[0]:
                 connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
-                                                          'Failed Registered request: IP is not'
-                                                          'correct'), addr)
+                                                          'Failed Registered '
+                                                          'request: IP is not'
+                                                          ' correct'), addr)
 
             else:
                 response = connexion.udp_package(clients[package.name],
@@ -178,8 +185,9 @@ def register(connexion, clients, package, addr, debug):
                 connexion.udp_socket.sendto(response, addr)          
     else:
         connexion.udp_socket.sendto(register_failed(REGISTER_REJ, 
-                                                  'Failed Registered request: client '
-                                                  'is not authorised'), addr)
+                                                    'Failed Registered'
+                                                    'request: client is not '
+                                                    'authorised'), addr)
 
 
 def alive(connexion, clients, package, addr, debug):
