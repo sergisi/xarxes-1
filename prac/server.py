@@ -289,7 +289,7 @@ def udp_server(connexion, clients, debug):
 
 
 def list_prot(clients):
-    print '-Nom--\t------IP------\t----MAC----\t-ALEA-\t----ESTAT---'
+    print '-Nom--\t------IP------\t----MAC-----\t-ALEA-\t----ESTAT---'
     for key in clients:
         client = clients[key]
         if client.random == None:
