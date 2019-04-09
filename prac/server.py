@@ -4,6 +4,8 @@ import argparse
 from ctypes import Structure, c_ubyte, c_char
 import random
 from time import sleep
+import sys
+import select
 
 REGISTER_REQ = 0x00
 REGISTER_ACK = 0x01
@@ -30,10 +32,11 @@ GET_REJ = 0x33
 GET_DATA = 0x34
 GET_END = 0x35
 
-# Constants temps
+# Constants paquets perduts per alive
 J = 2
 K = 3
 GRANUL = 2  # mig segon
+T = 3  # Temps que triga en enviar un alive
 
 
 class UdpPackage(Structure):
@@ -50,18 +53,19 @@ class Connexion():
 
     def __init__(self, server):
         servercfg = open(server)
-        for line in servercfg:
+        for line_with_newline in servercfg:
+            line = line_with_newline.rstrip('\n')
             word = line.partition(' ')[0]
             if word == 'Nom':
-                self.name = line.partition(' ')[1]
+                self.name = line.partition(' ')[-1]
             elif word == 'MAC':
-                self.mac = line.partition(' ')[1]
+                self.mac = line.partition(' ')[-1]
             elif word == 'UDP-port':
-                self.udp_socket = __init_udp_socket(
-                    line.partition(' ')[1])
+                self.udp_socket = init_udp_socket(
+                    line.partition(' ')[-1])
             elif word == 'TCP-port':
-                self.tcp_port = line.partition(' ')[1]
-                self.tcp_socket = __init_tcp_socket(self.tcp_port)
+                self.tcp_port = line.partition(' ')[-1]
+                self.tcp_socket = init_tcp_socket(self.tcp_port)
 
 
     def udp_package(self, client, tipus, data):
@@ -73,14 +77,14 @@ class Connexion():
         self.udp_socket.close()
 
 
-def __init_udp_socket(port):
+def init_udp_socket(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(('', port))
+    sock.bind(('', int(port)))
     return sock
 
-def __init_tcp_socket(port):
+def init_tcp_socket(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(('', port))
+    sock.bind(('', int(port)))
     sock.listen(5)
     return sock
 
@@ -114,8 +118,13 @@ class Client:
                 self.state = 'DISCONNECTED'
                 self.random = None
     
+    def set_alives(self):
+        self.state = 'REGISTERED'
+        self.alives = J * GRANUL * T
+    
     def reset_alive(self):
-        self.alives = K * GRANUL
+        self.state = 'ALIVE'
+        self.alives = K * GRANUL * T
 
 
 def debug(line, debug):
@@ -138,9 +147,10 @@ def set_clients(equips):
     equipsdat = open(equips)
     dicc = {}
     for line in equipsdat:
-        client = Client(line.partition(' ')[0],
-                        line.partition(' ')[1])
-        dicc[client.name] = client
+        if line.rstrip('\n \r\t') != '':
+            client = Client(line.partition(' ')[0],
+                            line.partition(' ')[-1].rstrip('\n'))
+            dicc[client.name] = client
     return dicc
 
 
@@ -166,6 +176,7 @@ def register(connexion, clients, package, addr, debug):
                 response = connexion.udp_package(clients[package.name],
                                         REGISTER_ACK, connexion.tcp_port)
                 connexion.udp_socket.sendto(response, addr)
+                client.set_alives()
         else: 
             if client.random != package.random:
                 connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
@@ -182,7 +193,8 @@ def register(connexion, clients, package, addr, debug):
             else:
                 response = connexion.udp_package(clients[package.name],
                                         REGISTER_ACK, connexion.tcp_port)
-                connexion.udp_socket.sendto(response, addr)          
+                connexion.udp_socket.sendto(response, addr)
+                # TODO: client.set_alives() ask professor about it
     else:
         connexion.udp_socket.sendto(register_failed(REGISTER_REJ, 
                                                     'Failed Registered'
@@ -191,38 +203,104 @@ def register(connexion, clients, package, addr, debug):
 
 
 def alive(connexion, clients, package, addr, debug):
-    pass
+    if package.name not in clients:
+        connexion.udp_socket.sendto(register_failed(ALIVE_REJ,
+                                                    'Failed Alive '
+                                                    'request: client is'
+                                                    ' not authorised'),
+                                                    addr)
+    else: 
+        client = clients[package.name]
+        if client.state != 'REGISTERED' and client.state != 'ALIVE':
+            connexion.udp_socket.sendto(register_failed(ALIVE_REJ,
+                                                        'Failed Alive '
+                                                        'request: client '
+                                                        ' is not registered'),
+                                                        addr)
+        if package.mac != client.name:
+            connexion.udp_socket.sendto(register_failed(ALIVE_REJ,
+                                                        'Failed Alive '
+                                                        'request: client MAC '
+                                                        ' is not authorised'),
+                                                        addr)
+        elif addr[0] != client.ip:
+            connexion.udp_socket.sendto(register_failed(ALIVE_NACK,
+                                                        'Failed Alive '
+                                                        'request: client IP '
+                                                        ' is not correct'),
+                                                        addr)
+        elif package.random == client.random:
+            connexion.udp_socket.sendto(register_failed(ALIVE_NACK,
+                                                        'Failed Alive request'
+                                                        ': client RANDOM '
+                                                        ' is not correct'),
+                                                        addr)
+        else:
+            client.reset_alive()
+            response = connexion.udp_package(clients[package.name],
+                                    ALIVE_ACK, 'ALIVE timer reseted')
+            connexion.udp_socket.sendto(response, addr)
+            client.set_alives()
 
 
-# TODO: finish this
 def alive_update(clients):
-    while True:  # Change so it breaks when quit prot
+    while True:  # TODO:Change so it breaks when quit prot
         sleep(1/GRANUL)
         for client in clients.itervalues():
             client.decrease_alive()
 
 
-def udp_server(connexion, clients, debug):
+def udp_manager(connexion, clients, debug):
     btties, addr = connexion.udp_socket.recvfrom(78)
     if btties:
         package = UdpPackage.from_buffer_copy(btties)
         if package.tipus == REGISTER_ACK:
             register(connexion, clients, package, addr, debug)
-        else:  # TODO: add elif and error for not alive pack and REG_ACK
+        elif package.tipus == ALIVE_INF:
             alive(connexion, clients, package, addr, debug)
+        else: 
+            connexion.udp_socket.sendto(register_failed(ERROR,
+                                                        'Failed package: '
+                                                        ' not an expected'
+                                                        'package from client'),
+                                                        addr)
 
 
-# TODO: revise list protocol
+def cli_manager(connexion, clients, debug):
+    line = sys.stdin.readline().rstrip('\n ')
+    if line == 'list':
+        list_prot(clients)
+    elif line == 'quit':
+        print 'Quit protocol'
+    else:
+        print 'Not a valid command. Please use list or quit'
+
+
+def udp_server(connexion, clients, debug):
+    infiles = [connexion.udp_socket, sys.stdin]
+    while True:
+        inputs = select.select(infiles, [], [])[0]
+        if connexion.udp_socket in inputs:
+            udp_manager(connexion, clients, debug)
+        if sys.stdin in inputs:
+            cli_manager(connexion, clients, debug) 
+
+
 def list_prot(clients):
     print '-Nom--\t------IP------\t----MAC----\t-ALEA-\t----ESTAT---'
-    for client in clients:
-        print '%s\t%s\t%s\t%s\t%s', (client.name, client.ip,
-                                     client.mac, client.random,
-                                     client.state)
+    for key in clients:
+        client = clients[key]
+        if client.random == None:
+            random = '     -'
+        if client.ip == None:
+            ip = '             -'
+        print client.name + '\t' + ip + '\t' + client.mac + '\t' + \
+            random + '\t' + client.state
 
 
 if __name__ == '__main__':
     args = argv()
     connexion = Connexion(args.config)
     clients = set_clients(args.authorised)
+    udp_server(connexion, clients, args.debug)
 
