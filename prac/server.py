@@ -270,8 +270,10 @@ def cli_manager(connexion, clients, debug):
     line = sys.stdin.readline().rstrip('\n ')
     if line == 'list':
         list_prot(clients)
-    elif line == 'quit':
+    elif line == 'quit':  # TODO: add concurrency quit protocol
         print 'Quit protocol'
+        connexion.close()
+        sys.exit(0)
     else:
         print 'Not a valid command. Please use list or quit'
 
