@@ -37,6 +37,7 @@ J = 2
 K = 3
 GRANUL = 2  # mig segon
 T = 3  # Temps que triga en enviar un alive
+W = 4  # Temps que pot tardar com a màxim send_data
 
 
 class UdpPackage(Structure):
@@ -45,6 +46,14 @@ class UdpPackage(Structure):
                 ('mac', c_char*13),
                 ('random', c_char*7),
                 ('data', c_char*50)]
+
+
+class TcpPackage(Structure):
+    _fields_ = [('tipus', c_ubyte ),
+                ('name', c_char*7),
+                ('mac', c_char*13),
+                ('random', c_char*7),
+                ('data', c_char*150)]
 
 
 class Connexion():
@@ -72,6 +81,10 @@ class Connexion():
         return UdpPackage(tipus, self.name,
                           self.mac, client.random, data)
 
+    def tcp_package(self, client, tipus, data):
+        return TcpPackage(tipus, self.name,
+                          self.mac, client.random, data)
+
     def close(self):
         self.tcp_socket.close()
         self.udp_socket.close()
@@ -89,8 +102,14 @@ def init_tcp_socket(port):
     return sock
 
 
-def register_failed(tipus, data):
-    return UdpPackage(tipus, '000000', '000000000000',
+def failed_package_udp(tipus, data):
+    return UdpPackage(tipus, '', '000000000000',
+                      '000000', data)
+    # TODO: ask professor if name should be '' or '000000'
+
+
+def failed_package_tcp(tipus, data):
+    return TcpPackage(tipus, '', '000000000000',
                       '000000', data)
 
 
@@ -104,6 +123,7 @@ class Client:
         self.state = 'DISCONNECTED'
         self.ip = None
         self.alives = 0
+        self.is_conf = False
 
     def set_random(self):
         self.random = str(random.randint(0, 1000000))
@@ -158,14 +178,14 @@ def register(connexion, clients, package, addr, debug):
     if package.name in clients:
         client = clients[package.name]
         if client.mac != package.mac:
-            connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+            connexion.udp_socket.sendto(failed_package_udp(REGISTER_NACK, 
                                                         'Failed Registered '
                                                         'request: MAC address'
                                                         'is not correct'),
                                                          addr)
         elif client.state == 'DISCONNECTED':
             if package.random != '000000':
-                connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                connexion.udp_socket.sendto(failed_package_udp(REGISTER_NACK, 
                                                           'Failed Registered '
                                                           'request: Random is'
                                                           ' not 000000'),
@@ -179,13 +199,13 @@ def register(connexion, clients, package, addr, debug):
                 client.set_alives()
         else: 
             if client.random != package.random:
-                connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                connexion.udp_socket.sendto(failed_package_udp(REGISTER_NACK, 
                                                           'Failed Registered '
                                                           'request: Random is'
                                                           ' not correct'),
                                                           addr)
             elif client.ip != addr[0]:
-                connexion.udp_socket.sendto(register_failed(REGISTER_NACK, 
+                connexion.udp_socket.sendto(failed_package_udp(REGISTER_NACK, 
                                                           'Failed Registered '
                                                           'request: IP is not'
                                                           ' correct'), addr)
@@ -196,7 +216,7 @@ def register(connexion, clients, package, addr, debug):
                 connexion.udp_socket.sendto(response, addr)
                 # TODO: client.set_alives() ask professor about it
     else:
-        connexion.udp_socket.sendto(register_failed(REGISTER_REJ, 
+        connexion.udp_socket.sendto(failed_package_udp(REGISTER_REJ, 
                                                     'Failed Registered'
                                                     'request: client is not '
                                                     'authorised'), addr)
@@ -204,7 +224,7 @@ def register(connexion, clients, package, addr, debug):
 
 def alive(connexion, clients, package, addr, debug):
     if package.name not in clients:
-        connexion.udp_socket.sendto(register_failed(ALIVE_REJ,
+        connexion.udp_socket.sendto(failed_package_udp(ALIVE_REJ,
                                                     'Failed Alive '
                                                     'request: client is'
                                                     ' not authorised'),
@@ -212,25 +232,25 @@ def alive(connexion, clients, package, addr, debug):
     else: 
         client = clients[package.name]
         if client.state != 'REGISTERED' and client.state != 'ALIVE':
-            connexion.udp_socket.sendto(register_failed(ALIVE_REJ,
+            connexion.udp_socket.sendto(failed_package_udp(ALIVE_REJ,
                                                         'Failed Alive '
                                                         'request: client '
                                                         ' is not registered'),
                                                         addr)
         if package.mac != client.name:
-            connexion.udp_socket.sendto(register_failed(ALIVE_REJ,
+            connexion.udp_socket.sendto(failed_package_udp(ALIVE_REJ,
                                                         'Failed Alive '
                                                         'request: client MAC '
                                                         ' is not authorised'),
                                                         addr)
         elif addr[0] != client.ip:
-            connexion.udp_socket.sendto(register_failed(ALIVE_NACK,
+            connexion.udp_socket.sendto(failed_package_udp(ALIVE_NACK,
                                                         'Failed Alive '
                                                         'request: client IP '
                                                         ' is not correct'),
                                                         addr)
         elif package.random == client.random:
-            connexion.udp_socket.sendto(register_failed(ALIVE_NACK,
+            connexion.udp_socket.sendto(failed_package_udp(ALIVE_NACK,
                                                         'Failed Alive request'
                                                         ': client RANDOM '
                                                         ' is not correct'),
@@ -259,7 +279,7 @@ def udp_manager(connexion, clients, debug):
         elif package.tipus == ALIVE_INF:
             alive(connexion, clients, package, addr, debug)
         else: 
-            connexion.udp_socket.sendto(register_failed(ERROR,
+            connexion.udp_socket.sendto(failed_package_udp(ERROR,
                                                         'Failed package: '
                                                         ' not an expected'
                                                         'package from client'),
@@ -285,8 +305,109 @@ def udp_server(connexion, clients, debug):
         if connexion.udp_socket in inputs:
             udp_manager(connexion, clients, debug)
         if sys.stdin in inputs:
-            cli_manager(connexion, clients, debug) 
+            cli_manager(connexion, clients, debug)
 
+
+def send_conf(conn, addr, first_package, clients, debug):
+    if first_package.name not in clients:
+        connexion.udp_socket.sendto(failed_package_tcp(SEND_REJ,
+                                                    'SEND_CONF failed: '
+                                                    ' not an authorised'
+                                                    'client'),
+                                                    addr)
+    else:
+        client = clients[first_package.name]
+        if client.mac != first_package.mac:
+            connexion.udp_socket.sendto(failed_package_tcp(SEND_REJ,
+                                                       'SEND_CONF failed: '
+                                                       ' not an authorised'
+                                                       'MAC from client'),
+                                                       addr)
+        elif client.random != first_package.random:
+            connexion.udp_socket.sendto(failed_package_tcp(SEND_NACK,
+                                                       'SEND_CONF failed: '
+                                                       ' random is not'
+                                                       'correct'),
+                                                       addr)
+        elif client.ip != addr[0]:
+            connexion.udp_socket.sendto(failed_package_tcp(SEND_NACK,
+                                                       'SEND_CONF failed: '
+                                                       ' IP is not'
+                                                       'correct'),
+                                                       addr)
+        elif client.is_conf:
+            connexion.udp_socket.sendto(failed_package_tcp(SEND_NACK,
+                                                       'SEND_CONF failed: '
+                                                       ' currently under'
+                                                       'operation'),
+                                                       addr)
+        else:
+            client.is_conf = True
+            send_conf_protocol(conn, client, debug)
+            client.is_conf = False
+    conn.close()
+
+
+def send_conf_protocol(conn, client, debug):
+    infiles = [conn]
+    inputs = select.select(infiles, [], [], W)[0]
+    clientcfg = open(client.name + '.cfg', 'w')
+    while inputs != []:
+        package = TcpPackage.from_buffer_copy(conn.recv(178))
+        if package.tipus != SEND_END:
+            clientcfg.write(package.data)
+            inputs = select.select(infiles, [], [], W)[0]
+        else:
+            break
+
+
+def get_conf(connexion, conn, addr, first_package, clients, debug):
+    if first_package.name not in clients:
+        connexion.udp_socket.sendto(failed_package_tcp(GET_REJ,
+                                                    'GET_CONF failed: '
+                                                    ' not an authorised'
+                                                    'client'),
+                                                    addr)
+    else:
+        client = clients[first_package.name]
+        if client.mac != first_package.mac:
+            connexion.udp_socket.sendto(failed_package_tcp(GET_REJ,
+                                                       'GET_CONF failed: '
+                                                       ' not an authorised'
+                                                       'MAC from client'),
+                                                       addr)
+        elif client.random != first_package.random:
+            connexion.udp_socket.sendto(failed_package_tcp(GET_NACK,
+                                                       'GET_CONF failed: '
+                                                       ' random is not'
+                                                       'correct'),
+                                                       addr)
+        elif client.ip != addr[0]:
+            connexion.udp_socket.sendto(failed_package_tcp(GET_NACK,
+                                                       'GET_CONF failed: '
+                                                       ' IP is not'
+                                                       'correct'),
+                                                       addr)
+        elif client.is_conf:
+            connexion.udp_socket.sendto(failed_package_tcp(GET_NACK,
+                                                       'GET_CONF failed: '
+                                                       ' currently under'
+                                                       'operation'),
+                                                       addr)
+        else:
+            client.is_conf = True
+            get_conf_protocol(connexion, conn, client, debug)
+            client.is_conf = False
+    conn.close()
+
+
+def get_conf_protocol(connexion, conn, client, debug):
+    clientcfg = open(client.name + '.cfg', 'r')
+    for line in clientcfg:
+        response = connexion.tcp_package(client, GET_DATA, line)
+        conn.send(response)
+    response = connexion.tcp_package(client, GET_END, 'GET PROTOCOL ended')
+    conn.send(response)
 
 def list_prot(clients):
     print '-Nom--\t------IP------\t----MAC-----\t-ALEA-\t----ESTAT---'
