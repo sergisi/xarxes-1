@@ -1,0 +1,160 @@
+Finished argparser
+INIT_UDP_SOCK_INFO: initialized variables
+INIT_UDP_SOCK_INFO: opened configuration file
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: name initialized
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: mac initialized
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: gethostbyname reached
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: port initialized
+INIT_UDP_SOCK_INFO: Starting udp_socket
+STATE_INFO: DISCONNECTED
+Starting register fase
+REGISTER_INFO: initialized data
+REGISTER_INFO: initialized process to register
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: registered successfully
+PACKAGE_INFO: the data in package is:
+	type: 1	name: NMS-01	mac: 43D3F4D80005	alea: 924648	data: 9102
+Register fase finished
+Starting CLI
+> 
+PIPE_CHLD: CLI is shutting down
+Finished argparser
+INIT_UDP_SOCK_INFO: initialized variables
+INIT_UDP_SOCK_INFO: opened configuration file
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: name initialized
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: mac initialized
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: gethostbyname reached
+INIT_UDP_SOCK_INFO: read a line of config
+INIT_UDP_SOCK_INFO: port initialized
+INIT_UDP_SOCK_INFO: Starting udp_socket
+STATE_INFO: DISCONNECTED
+Starting register fase
+REGISTER_INFO: initialized data
+REGISTER_INFO: initialized process to register
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: registered successfully
+PACKAGE_INFO: the data in package is:
+	type: 1	name: NMS-01	mac: 43D3F4D80005	alea: 924648	data: 9102
+Register fase finished
+Starting alive fase
+ALIVE_INFO: started alive process
+Sending first alive
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 924648	data: 
+PACKAGE_INFO: the data in package is:
+	type: 11	name: NMS-01	mac: 43D3F4D80005	alea: 924648	data: ALIVE timer reseted
+ALIVE_INFO: checked good
+ALIVE_INFO: recieved alive ack, state is now ALIVE
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 924648	data: 
+PACKAGE_INFO: the data in package is:
+	type: 11	name: NMS-01	mac: 43D3F4D80005	alea: 924648	data: ALIVE timer reseted
+ALIVE_INFO: checked good
+ALIVE_INFO: recieved alive ack, state is now ALIVE
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 924648	data: 
+PACKAGE_INFO: the data in package is:
+	type: 13	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client not registered
+ALIVE_INFO: data wasn't correctly send
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 924648	data: 
+PACKAGE_INFO: the data in package is:
+	type: 12	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client IP not correct
+ALIVE_INFO: data wasn't correctly send
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 924648	data: 
+PACKAGE_INFO: the data in package is:
+	type: 13	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client not registered
+ALIVE_INFO: data wasn't correctly send
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 924648	data: 
+Packages alive lost, state pass to disconnected
+PIPE_PRNT: send msg to child to disconnect
+PIPE_PRNT: child disconnected
+Finished alive fase
+Starting register fase
+REGISTER_INFO: initialized data
+REGISTER_INFO: initialized process to register
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: not an ACK package
+PACKAGE_INFO: the data in package is:
+	type: 12	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client IP not correct
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: not an ACK package
+PACKAGE_INFO: the data in package is:
+	type: 13	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client not registered
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: not an ACK package
+PACKAGE_INFO: the data in package is:
+	type: 12	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client IP not correct
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: not an ACK package
+PACKAGE_INFO: the data in package is:
+	type: 13	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client not registered
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: not an ACK package
+PACKAGE_INFO: the data in package is:
+	type: 12	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client IP not correct
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: registered successfully
+PACKAGE_INFO: the data in package is:
+	type: 1	name: NMS-01	mac: 43D3F4D80005	alea: 284516	data: 9102
+Register fase finished
+Starting CLI
+> 
+Quit protocol
+PIPE_CHLD: send msg to parent to disconnect
+CHLD: Disconnected
+me: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client not registered
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: not an ACK package
+PACKAGE_INFO: the data in package is:
+	type: 12	name: 	mac: 000000000000	alea: 000000	data: Failed Alive request: client IP not correct
+REGISTER_INFO: sending REGISTER_REQ
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 0	name: SW-01	mac: 89F107457A36	alea: 000000	data: 
+REGISTER_INFO: recv package
+REGISTER_INFO: registered successfully
+PACKAGE_INFO: the data in package is:
+	type: 1	name: NMS-01	mac: 43D3F4D80005	alea: 284516	data: 9102
+Register fase finished
+Starting alive fase
+ALIVE_INFO: started alive process
+Sending first alive
+UDP_SEND > PACKAGE_INFO: the data in package is:
+	type: 10	name: SW-01	mac: 89F107457A36	alea: 284516	data: 
+PIPE_PRNT: Shutting down

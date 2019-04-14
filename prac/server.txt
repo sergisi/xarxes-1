@@ -1,0 +1,47 @@
+Debug: Input in udp
+tipus: 16	name: SW-01	MAC: 89F107457A36	Random: 924648	Data: 	
+UDP_ALIVE: 16
+AL_ST: DISCONNECTED
+AL_IP: NONE
+Debug: Input in udp
+tipus: 16	name: SW-01	MAC: 89F107457A36	Random: 924648	Data: 	
+UDP_ALIVE: 16
+AL_ST: DISCONNECTED
+AL_IP: NONE
+Debug: Input in udp
+tipus: 16	name: SW-01	MAC: 89F107457A36	Random: 924648	Data: 	
+UDP_ALIVE: 16
+AL_ST: DISCONNECTED
+AL_IP: NONE
+Debug: Input in udp
+tipus: 16	name: SW-01	MAC: 89F107457A36	Random: 924648	Data: 	
+UDP_ALIVE: 16
+Debug: Input in udp
+AL_ST: DISCONNECTED
+AL_IP: NONE
+tipus: 0	name: SW-01	MAC: 89F107457A36	Random: 000000	Data: 	
+UDP_REGISTER: 0
+SW-01	89F107457A36	None	DISCONNECTED	None	0	False
+SW-01	89F107457A36	284516	REGISTERED	127.0.0.1	12	False
+Debug: Input in udp
+tipus: 0	name: SW-01	MAC: 89F107457A36	Random: 000000	Data: 	
+UDP_REGISTER: 0
+SW-01	89F107457A36	284516	REGISTERED	127.0.0.1	8	False
+Debug: Input in udp
+tipus: 0	name: SW-01	MAC: 89F107457A36	Random: 000000	Data: 	
+UDP_REGISTER: 0
+SW-01	89F107457A36	284516	REGISTERED	127.0.0.1	4	False
+Client SW-01 is now DISCONNECTED due to lack of alives
+Debug: Input in udp
+tipus: 0	name: SW-01	MAC: 89F107457A36	Random: 000000	Data: 	
+UDP_REGISTER: 0
+SW-01	89F107457A36	284516	DISCONNECTED	127.0.0.1	0	False
+SW-01	89F107457A36	568548	REGISTERED	127.0.0.1	12	False
+Debug: Input in udp
+tipus: 0	name: SW-01	MAC: 89F107457A36	Random: 000000	Data: 	
+UDP_REGISTER: 0
+SW-01	89F107457A36	568548	REGISTERED	127.0.0.1	4	False
+Client SW-01 is now DISCONNECTED due to lack of alives
+Debug: Input
+Quit protocol
+Debug: Input in udp

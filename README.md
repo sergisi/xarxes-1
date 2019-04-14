@@ -17,4 +17,15 @@ En la part del debug (-d 9), tot i que mostra com ha acceptat les peticions no m
 ---
 Coses a preguntar al professor:
     que significa tenir tres paquets sense contestar (espero a rebre la resposta    amb el que fa 3 o no?)
-    Si m'envia un REGISTER_NACK he d'esperar la resta de segons per a tornar a      enviar el paquet?
+    Si m'envia un REGISTER_NACK he d'esperar la resta de segons per a tornar a enviar el paquet?
+
+# Coses a tenir en compte
+Quan s'agafa un client de clients només es canvia si
+es torna a assignar al diccionari després.
+Això permet agafar sempre estats complets si s'agafar un client, 
+es canvia tot el necessari i s'escriu el client, però pot
+suposar manternir problemes de carrera.
+
+Per a solucionar-ho faré que les lectures sempre siguin
+a nivell de client però que les modificacions siguin a nivell de
+clients.

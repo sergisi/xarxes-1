@@ -645,7 +645,7 @@ void send_prot(connection connection, Arg arg) {
                 if(strcmp(package.data, strcat(namecfg, ".cfg")) == 0) {
                     send_file(connection, socket, arg);
                 } else {
-                    printf("ERROR_SEND: Name camp was not according to this node\n");
+                    printf("ERROR_SEND: DATA Name was not according to this node\n");
                 }
             } else {
                 printf("ERROR_SEND: Package type was not SEND_ACK: %x", package.type);
@@ -711,17 +711,17 @@ void get_prot(connection connection, Arg arg) {
                 if(strcmp(package.data, strcat(namecfg, ".cfg")) == 0) {
                     get_file(connection, socket, arg);
                 } else {
-                    printf("ERROR_SEND: Name camp was not according to this node\n");
+                    printf("ERROR_GET: Name camp was not according to this node\n");
                 }
             } else {
-                printf("ERROR_SEND: Package type was not GET_ACK: %x\n",
+                printf("ERROR_GET: Package type was not GET_ACK: %x\n",
                          package.type);
             }
         } else {
-            printf("ERROR_SEND: Camps were not send accordingly\n");
+            printf("ERROR_GET: Camps were not send accordingly\n");
         }
     } else {
-        printf("ERROR_SEND: A trouble has occured during connexion with server."
+        printf("ERROR_GET: A trouble has occured during connexion with server."
                "to try another time, please put the command\n");
     }
     debu("GET_PROT: closing tcp connection\n", arg.debug, 3);
