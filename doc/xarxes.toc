@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}}{1}
+\contentsline {section}{\numberline {2}Estructura}{1}
+\contentsline {subsection}{\numberline {2.1}Estructura del client}{1}
+\contentsline {subsection}{\numberline {2.2}Estructura del Servidor}{1}
+\contentsline {section}{\numberline {3}Estrat\IeC {\`e}gia}{2}
+\contentsline {subsection}{\numberline {3.1}Estrat\IeC {\`e}gia client}{2}
+\contentsline {subsection}{\numberline {3.2}Estrat\IeC {\`e}gia servidor}{2}
+\contentsline {section}{\numberline {4}Diagrama d'estats}{3}
+\contentsline {section}{\numberline {5}Consideracions}{3}

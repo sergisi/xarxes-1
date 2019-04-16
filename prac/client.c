@@ -153,7 +153,6 @@ int main(int argc, char **argv) {
             debu("Starting alive fase\n", arg.debug, 1);
             alive_fase(conn, arg.debug, pipes);
             debu("Finished alive fase\n", arg.debug, 1);
-
         }
     }
     return 1;
@@ -366,6 +365,7 @@ void register_fase(connection *connection, int debug) {
         }
         if(boolean == 0) {
             sleep(S);
+            q++;
         }
     }
     if((*connection).state != REGISTERED) {

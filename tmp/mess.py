@@ -1,16 +1,14 @@
+import threading
 from time import sleep
+dicc = 5
 
 
-class Foo:
-    def __init__(self, num):
-        self.num = num
-    def __str__(self):
-        return str(self.num)
+def foo():
+    global dicc
+    dicc = {'quim':'gay', 'ian':'petita'}
 
 if __name__ == '__main__':
-    dicc = {'quim':Foo(5), 'ian':Foo(3)}
-    while True:  # TODO:Change so it breaks when quit prot
-        for item in dicc:
-            dicc[item].num -= 1
-        sleep(1/2)
-        print [dicc[foo].num for foo in dicc]
+    t1 = threading.Thread(target=foo)
+    t1.start()
+    t1.join()
+    print dicc

@@ -378,6 +378,7 @@ def manager(connexion, debug):
     for pair in threads_conf:
         if pair[1]:
             pair[0].join()
+        pair[1] = False
     connexion.close()
 
 
@@ -499,7 +500,6 @@ def list_prot(clients):
 
 
 if __name__ == '__main__':
-    global clients
     args = argv()
     connexion = Connexion(args.config)
     clients = set_clients(args.authorised)

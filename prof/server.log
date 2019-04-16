@@ -1124,3 +1124,115 @@
 18:45:18: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=148359, dades=
 18:45:20: DEBUG =>  Petició de finalització
 18:45:20: DEBUG =>  Cancelat temporitzador per control alives
+13:56:03: DEBUG =>  Llegits paràmetres línia de comandes
+13:56:03: INFO  =>  Llegits 5 equips autoritzats en el sistema
+13:56:03: DEBUG =>  Llegits paràmetres arxiu de configuració
+13:56:03: DEBUG =>  Socket UDP actiu
+13:56:03: DEBUG =>  Socket TCP actiu
+13:56:03: DEBUG =>  Creat fill per gestionar alives 
+13:56:03: INFO  =>  Establert temporitzador per control alives
+13:56:03: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+13:56:03: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+13:56:03: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+13:56:03: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=894671, dades=9102
+13:56:06: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+13:56:06: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=894671)
+13:56:06: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+13:56:09: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut primer ALIVE en 6 segons)
+13:56:09: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=894671, dades=
+13:56:09: INFO  =>  Rebutjat ALIVE (equip no registrat). Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=894671
+13:56:09: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_REJ, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (equip no registrat)
+13:56:09: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=894671, dades=
+13:56:09: INFO  =>  Rebutjat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=894671 (alea incorrecte)
+13:56:09: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_NACK, nom=, mac=000000000000, alea=000000, dades=Error en dades de registre
+13:56:14: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+13:56:14: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+13:56:14: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+13:56:14: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=516469, dades=9102
+13:56:17: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+13:56:17: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=516469)
+13:56:17: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+13:56:20: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut primer ALIVE en 6 segons)
+13:56:20: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=516469, dades=
+13:56:20: INFO  =>  Rebutjat ALIVE (equip no registrat). Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=516469
+13:56:20: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_REJ, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (equip no registrat)
+13:56:24: DEBUG =>  Petició de finalització
+13:56:24: DEBUG =>  Cancelat temporitzador per control alives
+13:59:51: DEBUG =>  Llegits paràmetres línia de comandes
+13:59:51: INFO  =>  Llegits 5 equips autoritzats en el sistema
+13:59:51: DEBUG =>  Llegits paràmetres arxiu de configuració
+13:59:51: DEBUG =>  Socket UDP actiu
+13:59:51: DEBUG =>  Socket TCP actiu
+13:59:51: DEBUG =>  Creat fill per gestionar alives 
+13:59:51: INFO  =>  Establert temporitzador per control alives
+13:59:52: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+13:59:52: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+13:59:52: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+13:59:52: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=848013, dades=9102
+13:59:55: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+13:59:55: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013)
+13:59:55: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+13:59:58: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=848013, dades=
+13:59:58: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013
+13:59:58: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+13:59:58: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=848013, dades=
+14:00:01: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=848013, dades=
+14:00:01: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013
+14:00:01: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=848013, dades=
+14:00:04: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:04: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013)
+14:00:04: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:07: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:07: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013)
+14:00:07: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:10: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=848013, dades=
+14:00:10: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013
+14:00:10: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=848013, dades=
+14:00:13: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:13: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013)
+14:00:13: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:16: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:16: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013)
+14:00:16: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:19: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:19: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013)
+14:00:19: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:19: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut 3 ALIVES consecutius)
+14:00:22: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=848013, dades=
+14:00:22: INFO  =>  Rebutjat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=848013 (alea incorrecte)
+14:00:22: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_NACK, nom=, mac=000000000000, alea=000000, dades=Error en dades de registre
+14:00:27: DEBUG =>  Rebut: bytes=78, comanda=REGISTER_REQ, nom=SW-01, mac=89F107457A36, alea=000000, dades=
+14:00:27: INFO  =>  Acceptat registre. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=000000 
+14:00:27: MSG.  =>  Equip SW-01 passa a estat: REGISTERED
+14:00:27: DEBUG =>  Enviat: bytes=78, tipus=REGISTER_ACK, nom=NMS-01, mac=43D3F4D80005, alea=497364, dades=9102
+14:00:30: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:30: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364)
+14:00:30: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:33: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=497364, dades=
+14:00:33: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364
+14:00:33: MSG.  =>  Equip SW-01 passa a estat: ALIVE
+14:00:33: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=497364, dades=
+14:00:36: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=497364, dades=
+14:00:36: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364
+14:00:36: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=497364, dades=
+14:00:39: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:39: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364)
+14:00:39: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:42: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:42: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364)
+14:00:42: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:45: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=497364, dades=
+14:00:45: INFO  =>  Acceptat ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364
+14:00:45: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_ACK, nom=NMS-01, mac=43D3F4D80005, alea=497364, dades=
+14:00:48: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:48: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364)
+14:00:48: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:51: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:51: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364)
+14:00:51: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:54: DEBUG =>  Rebut: bytes=78, comanda=ALIVE_INF, nom=SW-01, mac=89F107457A36, alea=-98765, dades=
+14:00:54: INFO  =>  Error recepció ALIVE. Equip: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=-98765 (Registrat: nom=SW-01, ip=127.0.0.1, mac=89F107457A36 alea=497364)
+14:00:54: DEBUG =>  Enviat: bytes=78, tipus=ALIVE_NACK, nom=, mac=000000000000, alea=000000, dades=Error enviament ALIVE (dades equip incorrectes)
+14:00:54: MSG.  =>  Equip SW-01 passa a estat: DISCONNECTED (No s'han rebut 3 ALIVES consecutius)
+14:01:01: DEBUG =>  Petició de finalització
+14:01:01: DEBUG =>  Cancelat temporitzador per control alives
